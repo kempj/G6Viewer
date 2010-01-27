@@ -1,0 +1,178 @@
+177
+1 1 number vertices of graph
+1 2 one
+1 3 two
+2 max degree of graph
+2 1 min degree of graph
+2 2 avg degree of graph
+2 3 number of distinct degrees of graph
+2 4 sum of degrees of graph
+2 5 length of degrees of graph
+2 6 (n mod max degree)  of graph
+2 7 max_mode of degrees of graph
+2 8 min_mode of degrees of graph
+2 9 number of distinct modes of degree of graph
+2 1max_minimode of degrees of graph
+2 11 min_minimode of degrees of graph
+2 12 number of distinct minimodes of degree of graph
+2 13 invariants on subgraph induced by min degree vertices
+2 14 invariants on subgraph induced by max degree vertices
+2 15 frequency of modal degree of graph
+2 16 frequency of minimodal degree of graph
+2 17 number of isolated vertices of graph
+2 19 2nd largest in set of degrees of graph
+2 22nd smallest in set of degrees of graph
+2 21 2nd largest in sequence of degrees of graph
+2 22 2nd smallest in sequence of degrees of graph
+2 23 Number of even degrees in set of degrees of graph
+2 24 max of even degrees of graph
+2 25 max mode of even degrees of graph
+2 26 sum of even degrees in sequence of graph
+2 27 min of even degrees of graph
+2 28 number of even degrees in the degree sequence  of graph
+2 29 number of odd degrees in the degree sequence  of graph
+2 3(n mod 5) of graph
+2 31 (n mod 4) of graph
+2 32 (n mod 3) of graph
+2 33 (n mod 2) of graph
+2 34 residue of graph
+2 35 invariants on subgraph induced by N(min degree vertices) of graph
+2 36 invariants on subgraph induced by N[min degree vertices] of graph
+2 37 invariants on subgraph induced by N(min)-(min) of graph
+2 38 invariants on subgraph induced by N(max degree vertices) of graph
+2 39 invariants on subgraph induced by N[max degree vertices] of graph
+2 4invariants on subgraph induced by N(Max)-{Max} of graph
+2 41 invariants on subgraph induced by non-min degree vertices of graph
+2 42 invariants on subgraph induced by non-max degree vertices of graph
+2 43 Caro-Wei of graph
+2 44 sum of inverses of degrees of graph
+2 45 nonzero minimum of maximum{k, freq of degree k} of graph
+2 46 maximum of minimum{k, freq of degree k} of graph
+2 47 frequency of 2nd smallest degree in degree sequence of graph
+2 48 frequency of 2nd largest degree in degree sequence of graph
+2 49 number of balanced edges of graph
+2 5number of dd-critical vertices of graph
+2 51 median degree of graph
+2 52 lower_median degree of graph
+2 53 upper_median degree of graph
+2 54 1st_quartile degree of graph
+2 55 upper 1st_quartile degree of graph
+2 56 lower 1st_quartile degree of graph
+2 57 max of degree sums of nonadjacent pairs of vertices of graph
+2 58 min of degree sums of nonadjacent pairs of vertices of graph
+2 59 weighted median of graph
+2 6annihilation number of graph
+2 61 kthStep for a zero in Havil-Hakimi of graph
+2 62 max number of edges horizontal to a vertex of graph
+2 63 avg number of edges horizontal to a vertex of graph
+2 64 min number of edges horizontal to a vertex of graph
+2 65 invariants on subgraph induced by degree 2 vertices of graph
+2 66 invariants on subgraph induced by N[degree 2 vertices] of graph
+2 67 invariants on subgraph induced by N(degree 2 vertices) of graph
+2 68 invariants on subgraph induced by N(degree 2 vertices) - {degree 2 vertices} of graph
+2 69 invariants on subgraph induced by non-degree 2 vertices of graph
+2 7invariants on subgraph induced by V(G) - N(degree 2 vertices) of graph
+2 71 number of pendants of graph
+2 72 invariants on subgraph induced by N(pendants) of graph
+2 73 invariants on subgraph induced by V(G) - N(pendants) of graph
+2 74 invariants on subgraph induced by N(N(pendants)) of graph
+2 75 invariants on subgraph induced by V(G) - N(N(pendants)) of graph
+2 77 invariants on disparity of graph
+2 78 invariants on subgraph induced by degree => 3 vertices of graph
+2 79 invariants on subgraph induced by V(G) - {degree => 3 vertices} of graph
+2 101 Welsh_Powell invariant of graph
+3 Radius of graph
+3 1 diameter of graph
+3 2 invariants on subgraph induced by centers of graph
+3 3 invariants on subgraph induced by periphery of graph
+3 4 avg eccentricity of graph
+3 5 avg distance of graph
+3 6 min of (vertices at even distance from a vertex) of graph
+3 7 max of (vertices at even distance from a vertex) of graph
+3 8 invariants on subgraph induced by vertices with fewest vertices at even distance of graph
+3 9 invariants on subgraph induced by vertices with most vertices at even distance of graph
+3 1distance invariants between min degree vertices of graph
+3 11 distance invariants between max degree vertices of graph
+3 12 invariants on subgraph induced by N(centers) of graph
+3 13 invariants on subgraph induced by N(periphery) of graph
+3 14 invariants on subgraph induced by N[periphery] of graph
+3 15 invariants on subgraph induced by N(periphery) - {periphery} of graph
+3 16 I[periphery]  of graph
+3 17 number of 2-distance pairs on the periphery of graph
+3 18 number of diametrical-distance pairs on the periphery of graph
+3 19 average of distance from each center vertex of graph
+3 2average of distance from each periphery vertex of graph
+3 21 average of distance from each max degree vertex of graph
+3 22 average of distance from each min degree vertex of graph
+3 23 average of eccentricities of min degree vertices of graph
+3 24 average of eccentricities of max degree vertices of graph
+3 25 average eccentricity of I[periphery] of graph
+3 26 average distance from I[periphery] of graph
+3 27 eccentricity of periphery set of graph
+3 28 distance invariants between periphery vertices of graph
+3 29 distance invariants between centers of graph
+3 3eccentricity of center set of graph
+3 31 max total distance of a vertex of graph
+3 32 frequencey of max total distance of a vertex of graph
+3 33 min total distance of a vertex of graph
+3 34 frequencey of min total distance of a vertex of graph
+3 35 invariants on radial circles of graph
+3 36 max of even dist minus even horizontal of graph
+3 37 max of odd dist minus odd horizontal of graph
+3 38 average distance from set of center vertices of graph
+3 39 average distance from set of periphery vertices of graph
+3 4average distance from set of maximum degree vertices of graph
+3 41 average distance from set of degree 2 vertices of graph
+3 42 average distance from set of pendant vertices of graph
+3 43 min of (even_dist(v) - odd_dist(v) of graph
+4 independence number of graph
+4 1 clique number of graph
+4 2 chromatic number of graph
+4 3 alpha_core  of graph
+4 25 max local independence of graph
+4 26 freq of max local independence of graph
+4 27 min local independence of graph
+4 28 freq of min local independence of graph
+4 29 avg local independence of graph
+4 29 domination number of graph
+4 32-domination number of graph
+4 31 connectivity number of graph
+4 36 independent domination number of graph
+4 39 |N(max local indep)| of graph
+4 4|N[max local indep]| of graph
+4 4total domination number of graph
+4 33 vertex covering of graph
+4 41 number of cut vertices of graph
+4 44 invariants on critical independence of graph
+5 path covering of graph
+5 1 invariants on deg(v) + matching number(<V-N(v)>) of graph
+5 2 max of |N(edge)| of graph
+5 3 min of |N(edge)| of graph
+5 4 sum of |N(edge)| of graph
+5 5 matching number of graph
+5 6 edge chromatic number of graph
+6 number of triangles of graph
+6 1 number of K4 of graph
+6 2 girth of graph
+6 3 invariants on induced circumference of graph
+6 4 invariants on triangles incident to a vertex of graph
+6 5 invariants on K4s incident to a vertex of graph
+6 7 order of largest K(2,n) subgraph of graph
+6 9 number of paths of length 3  of graph
+6 1maximum number of paths of length 3 starting a vertex  of graph
+6 11 greedy maximum cut number of graph
+7 _connected graph
+7 1 _bipartite graph
+7 2 _tree graph
+7 3 _F-free graph
+7 4 _triangle-free graph
+7 5 _regular graph
+7 6 _claw-free graph
+7 7 _Traceable graph
+7 8 _Hamiltonian graph
+7 9 _C4-free graph
+7 1characteristic functions on min deg of graph
+7 11 characteristic functions on max deg of graph
+7 13 characteristic functions on number of vertices of graph
+7 14 _|E| >= n(n-1)/2
+7 16 _planar
