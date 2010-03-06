@@ -1,4 +1,28 @@
 
+/*
+ *  G6ViewPlus.java
+ *
+ *  Created on Jun 26, 2009, 4:17:10 PM
+ *  By:  Hooman Hematti
+ *      Justin D'souze
+ *      Jeremy Kemp
+ *  For Dr. Ermalinda Delavina
+ * Delavinae@uhd.edu
+ *
+ *  This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
@@ -41,23 +65,10 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/*
- * G6ViewPlus.java
- *
- * Created on Jun 26, 2009, 4:17:10 PM
- */
-/**
- *
- * @author Wandering Developer
- */
+
 public class G6ViewPlus extends javax.swing.JFrame
 {
-    //private Object tree;
 
     private DefaultMutableTreeNode rootNode;
     private DefaultTreeModel treeModel;
@@ -75,24 +86,283 @@ public class G6ViewPlus extends javax.swing.JFrame
     private ActionListener refresh;
     private boolean DEBUG = false;
 
+    //Jeremys stuff
     int invCount = 0;
     int colCount = 0;
     int rowCount = 0;
-    Object[][] data = {{"You","Shouldn't"},{"See","this"}};
-    JTable table;//not sure if this needs to be global
+    Object[][] data = {{"You","Shouldn't"},{"See","this"}};//object where invariant data is stored
+   
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    public DefaultListModel graphListModel = new DefaultListModel();
+    private DefaultListModel graphListModel = new DefaultListModel();
     public String[] inputInv;
+
     //The program should behave properly if one of these elements is removed, or another added.
-    String[] graphTypeTitle = {"Original Graph","Complement of Graph",
+    private String[] graphTypeTitle = {"Original Graph","Complement of Graph",
                           "2nd Power of Graph","2-Core of Graph"};
     //invCat ==> Invariant Category
-    String[] invCatTitle = {"Basic Invariants","Degree Invariants",
+    private String[] invCatTitle = {"Basic Invariants","Degree Invariants",
                        "Distance Invariants","Vertex Subsets",
                        "Invariants on Edges","Subgraph Invariants",
                        "Properties"};
     public Vector[][] arrayG = new Vector[graphTypeTitle.length][invCatTitle.length];
 
+
+    public class MyTableModel extends AbstractTableModel {
+        public String[] Columns = {"Bad", "Columns"};
+        public Object[][] dispData = {{"You","Shouldn't"},{"See","this"}};
+
+         public String getColumnName(int col) {
+        return Columns[col].toString();
+        }
+
+        public int getColumnCount() {
+            return Columns.length;
+        }
+        public int getRowCount() {
+            return dispData.length;
+        }
+        public void update(String[] Cols, Object[][] dataIn){
+            Columns = Cols;
+            dispData = dataIn;
+            fireTableStructureChanged();
+            fireTableDataChanged();
+        }
+        public Object getValueAt(int row, int col) {
+            return dispData[row][col];
+        }
+    }
+
+    public MyTableModel tModel1 = new MyTableModel();
+
+    public void showSubsetData(int startIndex, int endIndex)
+    {
+        String[] columnNames = {"test","values"};
+        Object[][] dataSmall;
+
+        if(startIndex > endIndex || startIndex < 0)
+        {//TODO: need to check for out of bounds error.
+            endIndex = 10;
+            startIndex = 0;
+        }
+
+        if(endIndex > colCount){
+            endIndex = colCount - 1;
+            startIndex = colCount - 11;
+        }
+        dataSmall = new Object[rowCount][endIndex-startIndex + 1];
+        columnNames = new String[endIndex-startIndex + 1];
+        columnNames[0] = " Graph Names ";
+
+        int counter = 1;
+        for(int i = startIndex ; i < endIndex ; i++)
+        {
+            columnNames[counter] = "";
+            for(int j = 3;j < inputInv[i].split(" ").length;j++){
+                columnNames[counter] = columnNames[counter] + inputInv[i].split(" ")[j];
+            }
+            counter++;
+        }
+
+        for(int i = 0; i < rowCount;i++)
+        {
+            dataSmall[i][0] = data[i][0];
+            for(int j = 1;j < endIndex - startIndex + 1; j++ )
+            {
+                dataSmall[i][j] = data[i][startIndex + j];
+            }
+        }
+        tModel1.update(columnNames, dataSmall);
+        
+        
+    }
+
+    public void readInMCM()
+    {
+        FileInputStream fstream;
+        DataInputStream in;
+        BufferedReader br;
+        String[] graphDataLine;
+
+        try
+        {
+            fstream = new FileInputStream("mcm1.dat");
+            in = new DataInputStream(fstream);
+            br = new BufferedReader(new InputStreamReader(in));
+
+            //reading in N
+            colCount = Integer.parseInt(br.readLine().split(" ")[0]);
+
+            inputInv = new String[colCount];
+
+            for(int i = 0; i < colCount; i++)
+            {
+                inputInv[i] = br.readLine();
+            }
+
+            rowCount = Integer.parseInt(br.readLine());
+
+            graphDataLine = new String[colCount];
+            data = new String[rowCount][colCount];
+
+            for(int i=0; i < rowCount; i++)
+            {
+                data[i][0] = br.readLine();
+                graphDataLine = br.readLine().split(" ");
+
+                for(int j=1; j < colCount ; j++)//
+                {
+                    data[i][j] = graphDataLine[j-1];
+                }
+            }
+            fstream.close();
+        }
+        catch (Exception e2){
+            System.err.println(//"Rows: " + rowCount + " Columns: " + colCount +"\n" +
+            "\n Error: " + e2.getMessage());
+        }
+
+    }
+
+
+    public void readInInv() {
+        FileInputStream fstream;
+        DataInputStream in;
+        BufferedReader br;
+
+        try
+        {
+            //TODO: alert user to missing file
+            fstream = new FileInputStream("invariantListing.dat");
+            in = new DataInputStream(fstream);
+            br = new BufferedReader(new InputStreamReader(in));
+
+            invCount = Integer.parseInt(br.readLine());
+            inputInv = new String[invCount];
+
+            for(int i = 0; i < invCount; i++)
+            {
+                inputInv[i] = br.readLine();
+            }
+            fstream.close();
+        }
+        catch (Exception e2)
+        {//Catch exception if any
+            System.err.println(//"Rows: " + rowCount + " Columns: " + colCount +"\n" +
+            "\n Error: " + e2.getMessage());
+        }
+
+    }
+
+    public void convertToArray(String graphString)
+    {//places the string from the list into a 2D array of vectors.
+        int graphNumber = -1;
+        int catNumber = -1;
+        int invNumber = -1;
+        String invName = "RONG";
+        String graphName = "RONG";
+        //handle custom graphs
+        if(graphString.split(" ")[0].contains("Custom"))
+        {
+            graphNumber = Integer.parseInt(graphString.split(" ")[2]);
+            catNumber = Integer.parseInt(graphString.split(" ")[3]);
+            invNumber = Integer.parseInt(graphString.split(" ")[4]);
+        }
+        else
+        {   //graphs from tree
+            invName = graphString.split("::")[0];
+            graphName = graphString.split("::")[1];
+
+            for(int i = 0; i < graphTypeTitle.length;i++)
+            {//finding what graph we are using
+                if(graphTypeTitle[i].contains(graphName))//I think this is better then ==
+                {
+                    graphNumber = i;
+                }
+            }
+
+            for(int i = 0; i < inputInv.length;i++)
+            {
+                if(inputInv[i].contains(invName))
+                {
+                    catNumber = Integer.parseInt(inputInv[i].split(" ")[0]);//changed to 0 for new data file
+                    invNumber = Integer.parseInt(inputInv[i].split(" ")[1]);//changed to 1 for new data file
+                    break;
+                }
+            }
+        }
+
+        if( graphNumber != -1 && catNumber != -1 && invNumber != -1)
+        {
+            if(!(arrayG[graphNumber][catNumber - 1].contains(invNumber)))
+                arrayG[graphNumber][catNumber - 1].add(invNumber);
+        }
+        else
+        {
+            System.out.println("Error: " + graphString + ": " + graphNumber + " " + catNumber + " " + invNumber);
+        }
+    }
+
+    public void initializeVectorArray()
+    {
+        for(int i = 0; i < graphTypeTitle.length;i++)
+        {
+            for(int j = 0; j < invCatTitle.length; j++)
+                arrayG[i][j] = new Vector();
+        }
+    }
+
+    public void writeDriver()
+    {
+        //FileInputStream fstream;
+        DataOutputStream out;
+        int sizeCounter = 0;
+        //fstream = new FileInputStream("mcm1.dat");
+        try
+        {
+            out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("Driver.dat")));
+
+            out.writeChars(Integer.toString(graphTypeTitle.length)+ "\n");// number of graphs
+            //System.out.println(graphTypeTitle.length + " //number of graphs");
+
+            for(int i=0;i<graphTypeTitle.length;i++)
+            {
+                out.writeChars(Integer.toString(i) + " // graph number\n");// graph number
+                //System.out.println(i + " // graph number");
+                sizeCounter = 0;
+                for(int j = 0; j < invCatTitle.length;j++)
+                {
+                    if(arrayG[i][j].size() > 0)
+                    {
+                        sizeCounter++;
+                    }
+                }
+                out.writeChars(Integer.toString(sizeCounter) + " // number of nonempty categories\n"); // number of nonempty categories for graph i
+             
+                for(int j=0;j<invCatTitle.length;j++)
+                {//System.out.println("Cat: " + j + " of " + invCatTitle.length);
+                    if(arrayG[i][j].size()> 0)
+                    {
+                        //Below, j+1 is used because there are 6 categories, 1-7, but they are stored in an array with indicies 0-6
+                        out.writeChars(Integer.toString(j+1) + " //cat number\n"); //print cat number
+                        out.writeChars(Integer.toString(arrayG[i][j].size()) + " //number of invs\n");//print number of invs
+                    }
+
+                    for(int k=0;k<arrayG[i][j].size();k++)
+                    {
+                        out.writeChars(arrayG[i][j].get(k).toString() + "\n");//printing inv
+                    }
+                }
+            }
+            out.close();
+        }
+        catch (Exception e3)
+        {//Catch exception if any
+            System.out.println("4: " + graphTypeTitle.length + ", 7: " + invCatTitle.length);
+            System.err.println("Error" + e3.getMessage());
+        }
+    }
+
+//~~~~~~~~~~~~~End of Jeremy's work~~~~~~~~~~~~~~~~~~~
 
 //Declare Custom Classes and Datatypes
     public class VisualVertex
@@ -693,225 +963,6 @@ public class G6ViewPlus extends javax.swing.JFrame
 
 
     }
-//Jeremys stuff
-    public void showSubsetData(int startIndex, int endIndex)//, Object[][] dataSmall)
-    {
-        String[] columnNames = {"test","values"};
-        Object[][] dataSmall;
-
-        
-        if(startIndex > endIndex || startIndex < 0 || endIndex > colCount)
-        {
-            endIndex = 10;
-            startIndex = 0;
-        }
-
-        dataSmall = new Object[rowCount][endIndex-startIndex + 1];
-        columnNames = new String[endIndex-startIndex + 1];
-        columnNames[0] = " Graph Names ";
-
-        for(int i = 1; i < endIndex - startIndex + 1; i++)
-        {
-            columnNames[i] = Integer.toString(i);//TODO:change to invariant names from file
-        }
-
-        for(int i = 0; i < rowCount;i++)
-        {
-            dataSmall[i][0] = data[i][0];
-            for(int j = 1;j < endIndex - startIndex + 1; j++ )
-            {
-                dataSmall[i][j] = data[i][startIndex + j];
-            }
-        }
-
-        table = new JTable(dataSmall, columnNames);
-        table.setVisible(true);
-        
-    }
-
-    public void readInData()
-    {
-        FileInputStream fstream;
-        DataInputStream in;
-        BufferedReader br;
-        String[] graphDataLine;
-
-        try
-        {
-            fstream = new FileInputStream("mcm1.dat");
-            in = new DataInputStream(fstream);
-            br = new BufferedReader(new InputStreamReader(in));
-
-            //reading in N
-            colCount = Integer.parseInt(br.readLine().split(" ")[0]);
-
-            inputInv = new String[colCount];
-
-            for(int i = 0; i < colCount; i++)
-            {
-                inputInv[i] = br.readLine();//changed to handle second input file
-            }
-
-            rowCount = Integer.parseInt(br.readLine());
-
-            graphDataLine = new String[colCount];
-            data = new String[rowCount][colCount];
-
-            for(int i=0; i < rowCount; i++)
-            {
-                data[i][0] = br.readLine();
-                graphDataLine = br.readLine().split(" ");
-
-                for(int j=1; j < colCount ; j++)//
-                {
-                    data[i][j] = graphDataLine[j-1];
-                }
-            }
-            fstream.close();
-
-            //second file: invariantListing.txt
-            fstream = new FileInputStream("invariantListing.dat");
-            in = new DataInputStream(fstream);
-            br = new BufferedReader(new InputStreamReader(in));
-
-            invCount = Integer.parseInt(br.readLine());
-            inputInv = new String[invCount];
-
-            for(int i = 0; i < invCount; i++)
-            {
-                inputInv[i] = br.readLine();
-            }
-            fstream.close();
-        }
-        catch (Exception e2)
-        {//Catch exception if any
-            System.err.println(//"Rows: " + rowCount + " Columns: " + colCount +"\n" +
-            "\n Error: " + e2.getMessage());
-        }
-
-    }
-
-    public void convertToArray(String graphString)
-    {//places the string from the list into a 2D array of vectors.
-        //System.out.println(graphString);
-        int graphNumber = -1;
-        int catNumber = -1;
-        int invNumber = -1;
-        String invName = "RONG";
-        String graphName = "RONG";
-        //handle custom graphs
-        if(graphString.split(" ")[0].contains("Custom"))
-        {
-            graphNumber = Integer.parseInt(graphString.split(" ")[2]);
-            catNumber = Integer.parseInt(graphString.split(" ")[3]);
-            invNumber = Integer.parseInt(graphString.split(" ")[4]);
-        }
-        else
-        {   //graphs from tree
-            invName = graphString.split("::")[0];
-            graphName = graphString.split("::")[1];
-
-            for(int i = 0; i < graphTypeTitle.length;i++)
-            {//finding what graph we are using
-                if(graphTypeTitle[i].contains(graphName))//I think this is better then ==
-                {
-                    graphNumber = i;
-                    //System.out.println("GraphNumber = " + graphNumber);
-                }
-                //else
-                //{
-                    //System.out.println(i + " " + invName + " " + graphTypeTitle[i]);
-                //}
-            }
-
-            for(int i = 0; i < inputInv.length;i++)
-            {
-                if(inputInv[i].contains(invName))
-                {
-                    catNumber = Integer.parseInt(inputInv[i].split(" ")[0]);//changed to 0 for new data file
-                    invNumber = Integer.parseInt(inputInv[i].split(" ")[1]);//changed to 1 for new data file
-                    break;
-                }
-            }
-        }
-
-        if( graphNumber != -1 && catNumber != -1 && invNumber != -1)
-        {
-            //System.out.println(graphNumber + " " + catNumber + " " + invNumber);
-            //go through array, and compare
-            if(!(arrayG[graphNumber][catNumber - 1].contains(invNumber)))
-                arrayG[graphNumber][catNumber - 1].add(invNumber);
-
-        }
-        else
-        {
-            System.out.println("Error: " + graphString + ": " + graphNumber + " " + catNumber + " " + invNumber);
-        }
-    }
-
-    public void initializeVectorArray()
-    {
-        for(int i = 0; i < graphTypeTitle.length;i++)
-        {
-            for(int j = 0; j < invCatTitle.length; j++)
-                arrayG[i][j] = new Vector();
-        }
-    }
-
-    public void writeDriver()
-    {
-        //FileInputStream fstream;
-        DataOutputStream out;
-        int sizeCounter = 0;
-        //fstream = new FileInputStream("mcm1.dat");
-        try
-        {
-            out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("Driver.dat")));
-
-            out.writeChars(Integer.toString(graphTypeTitle.length)+ "\n");// number of graphs
-            //System.out.println(graphTypeTitle.length + " //number of graphs");
-
-            for(int i=0;i<graphTypeTitle.length;i++)
-            {
-                out.writeChars(Integer.toString(i) + " // graph number\n");// graph number
-                //System.out.println(i + " // graph number");
-                sizeCounter = 0;
-                for(int j = 0; j < invCatTitle.length;j++)
-                {
-                    if(arrayG[i][j].size() > 0)
-                    {
-                        sizeCounter++;
-                    }
-                }
-                out.writeChars(Integer.toString(sizeCounter) + " // number of nonempty categories\n"); // number of nonempty categories for graph i
-                //System.out.println(sizeCounter + " // number of nonempty categories for graph i");
-
-                for(int j=0;j<invCatTitle.length;j++)
-                {//System.out.println("Cat: " + j + " of " + invCatTitle.length);
-                    if(arrayG[i][j].size()> 0)
-                    {
-                        //Below, j+1 is used because there are 6 categories, 1-7, but they are stored in an array with indicies 0-6
-                        out.writeChars(Integer.toString(j+1) + " //cat number\n"); //print cat number
-                        //System.out.println(j + " //print cat number");
-                        out.writeChars(Integer.toString(arrayG[i][j].size()) + " //number of invs\n");//print number of invs
-                        //System.out.println(arrayG[i][j].size() + " //print number of invs");
-                    }
-
-                    for(int k=0;k<arrayG[i][j].size();k++)
-                    {//System.out.println("Inv k: " + k + " of " + arrayG[i][j].size());
-                        out.writeChars(arrayG[i][j].get(k).toString() + "\n");//printing inv
-                        //System.out.println(arrayG[i][j].get(k).toString() + " //invariant identifier");
-                    }
-                }
-            }
-            out.close();
-        }
-        catch (Exception e3)
-        {//Catch exception if any
-            System.out.println("4: " + graphTypeTitle.length + ", 7: " + invCatTitle.length);
-            System.err.println("Error" + e3.getMessage());
-        }
-    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -950,6 +1001,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         jButton8 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
+        readInInv();
         jTree1 = new javax.swing.JTree();
         jButton5 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -965,9 +1017,8 @@ public class G6ViewPlus extends javax.swing.JFrame
         jTextField6 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
-        readInData();
-        showSubsetData(0,10);
-        jScrollPane3 = new javax.swing.JScrollPane(table);
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -981,10 +1032,8 @@ public class G6ViewPlus extends javax.swing.JFrame
         jCheckBox3 = new javax.swing.JCheckBox();
         jLabel11 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
-        jTextField8 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
-        jTextField7 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -1063,11 +1112,11 @@ public class G6ViewPlus extends javax.swing.JFrame
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGap(0, 517, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 564, Short.MAX_VALUE)
+            .addGap(0, 565, Short.MAX_VALUE)
         );
 
         jToggleButton1.setText("Insert");
@@ -1274,7 +1323,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToggleButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1290,6 +1339,9 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
+
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton4, jButton8, jToggleButton1});
+
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -1313,7 +1365,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton8)
                         .addComponent(jButton1)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("G6 Viewer", jPanel4);
@@ -1356,7 +1408,6 @@ public class G6ViewPlus extends javax.swing.JFrame
                     }
                     //adding the formatted string to the tree
                     invCatLeaf[i][j].add(new DefaultMutableTreeNode(displayName));
-
                     counter++;
                 }
             }
@@ -1448,7 +1499,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32))
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                                 .addContainerGap()))
                         .addGroup(jPanel7Layout.createSequentialGroup()
                             .addComponent(jButton6)
@@ -1457,6 +1508,11 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(jLabel6)
                         .addContainerGap())))
         );
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField4, jTextField5, jTextField6});
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel7, jLabel8, jLabel9});
+
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
@@ -1533,6 +1589,20 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         });
 
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                jScrollPane3MouseWheelMoved(evt);
+            }
+        });
+
+        //readInData();
+        readInMCM();
+        showSubsetData(0,10);
+        jTable1.setModel(tModel1);
+        jScrollPane3.setViewportView(jTable1);
+
         jTextField2.setText("0");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1557,6 +1627,11 @@ public class G6ViewPlus extends javax.swing.JFrame
         });
 
         jButton11.setText("Previous 10");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1565,7 +1640,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
@@ -1576,10 +1651,13 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 534, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 592, Short.MAX_VALUE)
                         .addComponent(jButton10)))
                 .addContainerGap())
         );
+
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton10, jButton11});
+
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -1631,88 +1709,69 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jCheckBox3.setText("Append to Existing data");
 
-        jLabel11.setText("Choose Invariants File");
+        jLabel11.setText("Choose Driver File");
 
         jButton13.setText("Find File");
-
-        jTextField8.setText("Insert File Name Here");
 
         jLabel10.setText("Select Graph File");
 
         jButton12.setText("Find File");
-
-        jTextField7.setText("Insert File Name Here");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jButton12)))
-                        .addGap(30, 30, 30))
-                    .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jButton13)
-                        .addGap(42, 42, 42))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11)))
-                .addGap(36, 36, 36))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(269, 269, 269)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton14)
-                            .addGap(48, 48, 48)))
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1))
-                .addContainerGap(261, Short.MAX_VALUE))
+                        .addComponent(jCheckBox3)
+                        .addComponent(jCheckBox2)
+                        .addComponent(jCheckBox1))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton12))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton13))
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton14))))
+                .addContainerGap(557, Short.MAX_VALUE))
         );
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel11, jLabel12});
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton12, jButton13, jButton14});
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCheckBox1, jCheckBox2, jCheckBox3});
+
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton12)
-                        .addGap(37, 37, 37)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(97, 97, 97))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addComponent(jButton13)
-                                .addGap(37, 37, 37)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(73, 73, 73)
-                .addComponent(jLabel12)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jButton12))
                 .addGap(18, 18, 18)
-                .addComponent(jButton14)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jButton13))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jButton14))
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox3)
-                .addGap(192, 192, 192))
+                .addGap(345, 345, 345))
         );
 
         jTabbedPane1.addTab("Run Program", jPanel6);
@@ -1744,7 +1803,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -2135,19 +2194,6 @@ public class G6ViewPlus extends javax.swing.JFrame
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         //Updating data for tab 3 to desired range
         showSubsetData(Integer.parseInt(jTextField2.getText()), Integer.parseInt(jTextField3.getText()));
-        //Need to figure out how to refresh/redraw the graph
-        //Graphics TG = jPanel5.getGraphics();
-        //jPanel5.removeAll();
-        //jPanel5.paintAll(TG);
-        //jScrollPane3 = new javax.swing.JScrollPane(table);
-        //jPanel5.add(jScrollPane3);
-        //jScrollPane3.removeAll();
-        //jTabbedPane1.validate();
-        //jTabbedPane1.repaint();
-        //jPanel5.validate();
-        //jPanel5.repaint();
-        //jTabbedPane1.repaint();
-
 }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -2211,14 +2257,26 @@ public class G6ViewPlus extends javax.swing.JFrame
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        jTextField2.setText(Integer.toString(Integer.parseInt(jTextField2.getText()) + 10));
+        jTextField3.setText(Integer.toString(Integer.parseInt(jTextField3.getText()) + 10));
+        showSubsetData(Integer.parseInt(jTextField2.getText()), Integer.parseInt(jTextField3.getText()));
+
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
         graphListModel.removeAllElements();
         initializeVectorArray();
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jScrollPane3MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jScrollPane3MouseWheelMoved
+        // need to figure out how to get rid of this.
+    }//GEN-LAST:event_jScrollPane3MouseWheelMoved
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        jTextField2.setText(Integer.toString(Integer.parseInt(jTextField2.getText()) - 10));
+        jTextField3.setText(Integer.toString(Integer.parseInt(jTextField3.getText()) - 10));
+        showSubsetData(Integer.parseInt(jTextField2.getText()), Integer.parseInt(jTextField3.getText()));
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2281,19 +2339,18 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    public javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JSlider jSlider2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
