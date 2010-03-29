@@ -7,7 +7,7 @@
  *      Justin D'souze
  *      Jeremy Kemp
  *  For Dr. Ermalinda Delavina
- * Delavinae@uhd.edu
+ *      Delavinae@uhd.edu
  *
  *  This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -158,7 +158,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         {
             columnNames[counter] = "";
             for(int j = 3;j < inputInv[i].split(" ").length;j++){
-                columnNames[counter] = columnNames[counter] + inputInv[i].split(" ")[j];
+                columnNames[counter] = columnNames[counter] + inputInv[i].split(" ")[j] + " ";
             }
             counter++;
         }
@@ -512,7 +512,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                 tempv = (VisualVertex) vertices.get(b); //get second vertex
                 vb = tempv.GetCenter();//get center
             } else {
-                vb = jPanel1.getMousePosition();
+                vb = mainGraphPanel.getMousePosition();
             }
 
             //NOTE: Order of points add to polygon matters
@@ -700,7 +700,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                     temp.SetA(i);
                     temp.SetB(j);
                     temp.SetWidth(edge_width);
-                    temp.SetColor((String) jComboBox2.getSelectedItem());
+                    temp.SetColor((String) edgeComboBox.getSelectedItem());
                     edges.add(temp);
                     temp = new VisualEdge();
                     edgeList += "" + i + " - " + j + "\n";
@@ -748,7 +748,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             temp.SetCenter((int) (mid_x + g_rad * Math.cos(Math.toRadians(i * angle))),
                     (int) (mid_y + g_rad * Math.sin(Math.toRadians(i * angle))));
             temp.SetDiam(vertex_diam);
-            temp.SetColor((String) jComboBox1.getSelectedItem());
+            temp.SetColor((String) vertexComboBox.getSelectedItem());
             vertices.add(temp);
             temp = new VisualVertex();
         }
@@ -759,15 +759,15 @@ public class G6ViewPlus extends javax.swing.JFrame
         int size = GetGraphSize(g6);
         matrix = new int[size][size];
         GetMatrix(size, g6, matrix);
-        RefreshVertexListForPanel(jPanel1);
+        RefreshVertexListForPanel(mainGraphPanel);
         GetEdgeList(size, matrix);
         UpdateEdgeListDisplay();
-        DrawGraph(jPanel1.getGraphics());
+        DrawGraph(mainGraphPanel.getGraphics());
     }
 
     public void DrawGraph(Graphics g) {
-        jPanel1.removeAll();
-        jPanel1.paintAll(g);
+        mainGraphPanel.removeAll();
+        mainGraphPanel.paintAll(g);
         VisualEdge tmpE;
 
         for (int i = 0; i < edges.size(); i++) {
@@ -820,7 +820,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             text += tmp.GetA() + " - " + tmp.GetB();
             model.add(i, text);
         }
-        jList1.setModel(model);
+        edgeList.setModel(model);
     }
 
     public String EdgeListToString() {
@@ -908,20 +908,20 @@ public class G6ViewPlus extends javax.swing.JFrame
         colorset[5] = "Magenta";
 
         //values for color comboboxes
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(colorset));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(colorset)); //reinitialize combobox
-        jComboBox1.setEditable(false); //uneditable
-        jComboBox2.setEditable(false); //uneditable
+        vertexComboBox.setModel(new javax.swing.DefaultComboBoxModel(colorset));
+        edgeComboBox.setModel(new javax.swing.DefaultComboBoxModel(colorset)); //reinitialize combobox
+        vertexComboBox.setEditable(false); //uneditable
+        edgeComboBox.setEditable(false); //uneditable
 
         //clean jTextField1
-        jTextField1.setText("");
+        graphNameTextField.setText("");
 
         //clean jList1
-        jList1.setModel(new javax.swing.DefaultListModel());
+        edgeList.setModel(new javax.swing.DefaultListModel());
 
         if (args.length != 0) {
-            jTextField1.setText(args[0]);
-            DrawFromG6(args[0], jPanel1);
+            graphNameTextField.setText(args[0]);
+            DrawFromG6(args[0], mainGraphPanel);
         }
 
     }
@@ -950,16 +950,16 @@ public class G6ViewPlus extends javax.swing.JFrame
         colorset[5] = "Magenta";
 
         //values for color comboboxes
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(colorset));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(colorset)); //reinitialize combobox
-        jComboBox1.setEditable(false); //uneditable
-        jComboBox2.setEditable(false); //uneditable
+        vertexComboBox.setModel(new javax.swing.DefaultComboBoxModel(colorset));
+        edgeComboBox.setModel(new javax.swing.DefaultComboBoxModel(colorset)); //reinitialize combobox
+        vertexComboBox.setEditable(false); //uneditable
+        edgeComboBox.setEditable(false); //uneditable
 
         //clean jTextField1
-        jTextField1.setText("");
+        graphNameTextField.setText("");
 
         //clean jList1
-        jList1.setModel(new javax.swing.DefaultListModel());
+        edgeList.setModel(new javax.swing.DefaultListModel());
 
 
     }
@@ -975,57 +975,56 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jFrame1 = new javax.swing.JFrame();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jPanel1 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jComboBox1 = new javax.swing.JComboBox();
-        jSlider1 = new javax.swing.JSlider();
+        tab1Panel = new javax.swing.JPanel();
+        edgeListScrollPane = new javax.swing.JScrollPane();
+        edgeList = new javax.swing.JList();
+        mainGraphPanel = new javax.swing.JPanel();
+        insertButton = new javax.swing.JToggleButton();
+        vertexMenuPanel = new javax.swing.JPanel();
+        setVertexButton = new javax.swing.JButton();
+        deleteVertexButton = new javax.swing.JToggleButton();
+        vertexComboBox = new javax.swing.JComboBox();
+        vertexSizeSlider = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jComboBox2 = new javax.swing.JComboBox();
-        jSlider2 = new javax.swing.JSlider();
+        saveGraphButton = new javax.swing.JButton();
+        edgeMenuPanel = new javax.swing.JPanel();
+        setEdgeButton = new javax.swing.JButton();
+        deleteEdgeButton = new javax.swing.JToggleButton();
+        edgeComboBox = new javax.swing.JComboBox();
+        edgeSizeSlider = new javax.swing.JSlider();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        highlightingButton = new javax.swing.JToggleButton();
+        graphGoButton = new javax.swing.JButton();
+        graphNameTextField = new javax.swing.JTextField();
         jButton8 = new javax.swing.JButton();
-        jPanel7 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        tab2Panel = new javax.swing.JPanel();
+        invariantTreeScrollPane = new javax.swing.JScrollPane();
         readInInv();
-        jTree1 = new javax.swing.JTree();
-        jButton5 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        invariantTree = new javax.swing.JTree();
+        writeDriverButton = new javax.swing.JButton();
+        resetListButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList(graphListModel);
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        addInvariantButton = new javax.swing.JButton();
+        invariantListScrollPane = new javax.swing.JScrollPane();
+        invariantList = new javax.swing.JList(graphListModel);
+        graphNumberTextField = new javax.swing.JTextField();
+        categoryNumberTextField = new javax.swing.JTextField();
+        invariantNumberTextField = new javax.swing.JTextField();
+        tab3Panel = new javax.swing.JPanel();
+        refreshInvariantsButton = new javax.swing.JButton();
+        startColumnTextField = new javax.swing.JTextField();
+        invariantTableScrollPane = new javax.swing.JScrollPane();
+        invariantTable = new javax.swing.JTable();
+        endColumnTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        next10Button = new javax.swing.JButton();
+        last10Button = new javax.swing.JButton();
+        tab5Panel = new javax.swing.JPanel();
         jButton14 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
@@ -1034,6 +1033,30 @@ public class G6ViewPlus extends javax.swing.JFrame
         jButton13 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jTextField1 = new javax.swing.JTextField();
+        jComboBox2 = new javax.swing.JComboBox();
+        jComboBox3 = new javax.swing.JComboBox();
+        jTextField2 = new javax.swing.JTextField();
+        jComboBox4 = new javax.swing.JComboBox();
+        jComboBox5 = new javax.swing.JComboBox();
+        jComboBox6 = new javax.swing.JComboBox();
+        jTextField3 = new javax.swing.JTextField();
+        jComboBox13 = new javax.swing.JComboBox();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jComboBox7 = new javax.swing.JComboBox();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jComboBox8 = new javax.swing.JComboBox();
+        jComboBox9 = new javax.swing.JComboBox();
+        jComboBox10 = new javax.swing.JComboBox();
+        jComboBox11 = new javax.swing.JComboBox();
+        jTextField6 = new javax.swing.JTextField();
+        jComboBox12 = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel12 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -1063,105 +1086,105 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        edgeList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jList1.setFocusCycleRoot(true);
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+        edgeList.setFocusCycleRoot(true);
+        edgeList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
+                edgeListMouseClicked(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jList1MouseReleased(evt);
+                edgeListMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(jList1);
+        edgeListScrollPane.setViewportView(edgeList);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        mainGraphPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        mainGraphPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                mainGraphPanelMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mainGraphPanelMouseReleased(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
+                mainGraphPanelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel1MouseEntered(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel1MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jPanel1MouseReleased(evt);
+                mainGraphPanelMouseEntered(evt);
             }
         });
-        jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
+        mainGraphPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                jPanel1ComponentResized(evt);
+                mainGraphPanelComponentResized(evt);
             }
         });
-        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jPanel1MouseDragged(evt);
-            }
+        mainGraphPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jPanel1MouseMoved(evt);
+                mainGraphPanelMouseMoved(evt);
+            }
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                mainGraphPanelMouseDragged(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+        javax.swing.GroupLayout mainGraphPanelLayout = new javax.swing.GroupLayout(mainGraphPanel);
+        mainGraphPanel.setLayout(mainGraphPanelLayout);
+        mainGraphPanelLayout.setHorizontalGroup(
+            mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 538, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mainGraphPanelLayout.setVerticalGroup(
+            mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 565, Short.MAX_VALUE)
         );
 
-        jToggleButton1.setText("Insert");
-        jToggleButton1.addChangeListener(new javax.swing.event.ChangeListener() {
+        insertButton.setText("Insert");
+        insertButton.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jToggleButton1StateChanged(evt);
+                insertButtonStateChanged(evt);
             }
         });
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                insertButtonActionPerformed(evt);
             }
         });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Vertex"));
+        vertexMenuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Vertex"));
 
-        jButton2.setText("Set All");
-        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        setVertexButton.setText("Set All");
+        setVertexButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setVertexButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                setVertexButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton2.setText("Delete Mode");
-        jToggleButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        deleteVertexButton.setText("Delete Mode");
+        deleteVertexButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        deleteVertexButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                deleteVertexButtonActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        vertexComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jSlider1.setMajorTickSpacing(10);
-        jSlider1.setMaximum(60);
-        jSlider1.setMinimum(10);
-        jSlider1.setMinorTickSpacing(5);
-        jSlider1.setPaintLabels(true);
-        jSlider1.setPaintTicks(true);
-        jSlider1.setSnapToTicks(true);
-        jSlider1.setValue(10);
-        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+        vertexSizeSlider.setMajorTickSpacing(10);
+        vertexSizeSlider.setMaximum(60);
+        vertexSizeSlider.setMinimum(10);
+        vertexSizeSlider.setMinorTickSpacing(5);
+        vertexSizeSlider.setPaintLabels(true);
+        vertexSizeSlider.setPaintTicks(true);
+        vertexSizeSlider.setSnapToTicks(true);
+        vertexSizeSlider.setValue(10);
+        vertexSizeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSlider1StateChanged(evt);
+                vertexSizeSliderStateChanged(evt);
             }
         });
 
@@ -1169,81 +1192,81 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jLabel2.setText("Color");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout vertexMenuPanelLayout = new javax.swing.GroupLayout(vertexMenuPanel);
+        vertexMenuPanel.setLayout(vertexMenuPanelLayout);
+        vertexMenuPanelLayout.setHorizontalGroup(
+            vertexMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vertexMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(vertexMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, 0, 109, Short.MAX_VALUE)
+                    .addComponent(vertexComboBox, 0, 109, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSlider1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                    .addComponent(jToggleButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
+                    .addComponent(vertexSizeSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(setVertexButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(deleteVertexButton, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        vertexMenuPanelLayout.setVerticalGroup(
+            vertexMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vertexMenuPanelLayout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addGap(5, 5, 5)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(vertexComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton2)
+                .addComponent(deleteVertexButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(setVertexButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(vertexSizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton4.setText("Save");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        saveGraphButton.setText("Save");
+        saveGraphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                saveGraphButtonActionPerformed(evt);
             }
         });
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Edge"));
+        edgeMenuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Edge"));
 
-        jButton3.setText("Set All");
-        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        setEdgeButton.setText("Set All");
+        setEdgeButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setEdgeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                setEdgeButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton3.setText("Delete Mode");
-        jToggleButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+        deleteEdgeButton.setText("Delete Mode");
+        deleteEdgeButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        deleteEdgeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
+                deleteEdgeButtonActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        edgeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        edgeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                edgeComboBoxActionPerformed(evt);
             }
         });
 
-        jSlider2.setMajorTickSpacing(10);
-        jSlider2.setMaximum(35);
-        jSlider2.setMinimum(5);
-        jSlider2.setMinorTickSpacing(5);
-        jSlider2.setPaintLabels(true);
-        jSlider2.setPaintTicks(true);
-        jSlider2.setSnapToTicks(true);
-        jSlider2.setValue(5);
-        jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
+        edgeSizeSlider.setMajorTickSpacing(10);
+        edgeSizeSlider.setMaximum(35);
+        edgeSizeSlider.setMinimum(5);
+        edgeSizeSlider.setMinorTickSpacing(5);
+        edgeSizeSlider.setPaintLabels(true);
+        edgeSizeSlider.setPaintTicks(true);
+        edgeSizeSlider.setSnapToTicks(true);
+        edgeSizeSlider.setValue(5);
+        edgeSizeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSlider2StateChanged(evt);
+                edgeSizeSliderStateChanged(evt);
             }
         });
 
@@ -1251,57 +1274,57 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jLabel4.setText("Size");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout edgeMenuPanelLayout = new javax.swing.GroupLayout(edgeMenuPanel);
+        edgeMenuPanel.setLayout(edgeMenuPanelLayout);
+        edgeMenuPanelLayout.setHorizontalGroup(
+            edgeMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(edgeMenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(edgeMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox2, 0, 109, Short.MAX_VALUE)
-                    .addComponent(jToggleButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(edgeComboBox, 0, 109, Short.MAX_VALUE)
+                    .addComponent(deleteEdgeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addComponent(setEdgeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSlider2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edgeSizeSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        edgeMenuPanelLayout.setVerticalGroup(
+            edgeMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(edgeMenuPanelLayout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edgeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton3)
+                .addComponent(deleteEdgeButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(setEdgeButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edgeSizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jToggleButton4.setText("Highlighting");
-        jToggleButton4.setToolTipText("When highligting is activated, the edit functionalities (if in Edit mode), will be disabled.");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+        highlightingButton.setText("Highlighting");
+        highlightingButton.setToolTipText("When highligting is activated, the edit functionalities (if in Edit mode), will be disabled.");
+        highlightingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
+                highlightingButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Go");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        graphGoButton.setText("Go");
+        graphGoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                graphGoButtonActionPerformed(evt);
             }
         });
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        graphNameTextField.setText("jTextField1");
+        graphNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                graphNameTextFieldActionPerformed(evt);
             }
         });
 
@@ -1312,63 +1335,63 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout tab1PanelLayout = new javax.swing.GroupLayout(tab1Panel);
+        tab1Panel.setLayout(tab1PanelLayout);
+        tab1PanelLayout.setHorizontalGroup(
+            tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab1PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab1PanelLayout.createSequentialGroup()
+                        .addComponent(edgeListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE))
+                        .addComponent(mainGraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(graphNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(highlightingButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vertexMenuPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edgeMenuPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab1PanelLayout.createSequentialGroup()
+                        .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(graphGoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(saveGraphButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(insertButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton4, jButton8, jToggleButton1});
+        tab1PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {graphGoButton, insertButton, jButton8, saveGraphButton});
 
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+        tab1PanelLayout.setVerticalGroup(
+            tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab1PanelLayout.createSequentialGroup()
+                .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mainGraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(tab1PanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(highlightingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(vertexMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(edgeMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton1)
-                            .addComponent(jButton4)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(insertButton)
+                            .addComponent(saveGraphButton)))
+                    .addComponent(edgeListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(graphNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton8)
-                        .addComponent(jButton1)))
+                        .addComponent(graphGoButton)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("G6 Viewer", jPanel4);
+        jTabbedPane1.addTab("G6 Viewer", tab1Panel);
 
         initializeVectorArray();
         rootNode = new DefaultMutableTreeNode("All Invariants");
@@ -1413,28 +1436,28 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         }
         treeModel = new DefaultTreeModel(rootNode);
-        jTree1.setModel(treeModel);
-        jTree1.setEditable(true);
-        jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+        invariantTree.setModel(treeModel);
+        invariantTree.setEditable(true);
+        invariantTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                jTree1ValueChanged(evt);
+                invariantTreeValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(jTree1);
+        invariantTreeScrollPane.setViewportView(invariantTree);
 
         //ActionListener done;
-        jButton5.setText("Write");
+        writeDriverButton.setText("Write");
         //jButton5.setEnabled(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        writeDriverButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                writeDriverButtonActionPerformed(evt);
             }
         });
 
-        jButton9.setText("Reset");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        resetListButton.setText("Reset");
+        resetListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                resetListButtonActionPerformed(evt);
             }
         });
 
@@ -1446,105 +1469,105 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jLabel9.setText("Invariant");
 
-        jButton6.setText("Add");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        addInvariantButton.setText("Add");
+        addInvariantButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                addInvariantButtonActionPerformed(evt);
             }
         });
 
         /*
-        jList2.setModel(new javax.swing.AbstractListModel() {
+        invariantList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { ""};//Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         */
-        jScrollPane5.setViewportView(jList2);
+        invariantListScrollPane.setViewportView(invariantList);
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        invariantNumberTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                invariantNumberTextFieldActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout tab2PanelLayout = new javax.swing.GroupLayout(tab2Panel);
+        tab2Panel.setLayout(tab2PanelLayout);
+        tab2PanelLayout.setHorizontalGroup(
+            tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab2PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(writeDriverButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tab2PanelLayout.createSequentialGroup()
+                                .addComponent(resetListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
-                            .addGroup(jPanel7Layout.createSequentialGroup()
+                            .addGroup(tab2PanelLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jLabel7)
                                 .addGap(2, 2, 2)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(graphNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(categoryNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(invariantNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addGroup(tab2PanelLayout.createSequentialGroup()
+                                .addComponent(invariantListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
                                 .addContainerGap()))
-                        .addGroup(jPanel7Layout.createSequentialGroup()
-                            .addComponent(jButton6)
+                        .addGroup(tab2PanelLayout.createSequentialGroup()
+                            .addComponent(addInvariantButton)
                             .addContainerGap()))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(tab2PanelLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addContainerGap())))
         );
 
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField4, jTextField5, jTextField6});
+        tab2PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {categoryNumberTextField, graphNumberTextField, invariantNumberTextField});
 
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel7, jLabel8, jLabel9});
+        tab2PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel7, jLabel8, jLabel9});
 
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        tab2PanelLayout.setVerticalGroup(
+            tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab2PanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab2PanelLayout.createSequentialGroup()
+                        .addComponent(invariantListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton9)
+                        .addComponent(resetListButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(categoryNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(graphNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(invariantNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
-                        .addComponent(jButton6))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
+                        .addComponent(addInvariantButton))
+                    .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                .addComponent(writeDriverButton)
                 .addGap(14, 14, 14))
         );
 
         /*done = new ActionListener()
         {
             public void actionPerformed(ActionEvent e) {
-                jButton5.setEnabled(false);
-                jButton6.setEnabled(true);
+                writeDriverButton.setEnabled(false);
+                addInvariantButton.setEnabled(true);
                 selection = false;
 
                 try
@@ -1578,101 +1601,101 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         };
 
-        jButton5.addActionListener(done);*/
+        writeDriverButton.addActionListener(done);*/
 
-        jTabbedPane1.addTab("Select Invariants", jPanel7);
+        jTabbedPane1.addTab("Select Invariants", tab2Panel);
 
-        jButton7.setText("Refresh");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        refreshInvariantsButton.setText("Refresh");
+        refreshInvariantsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                refreshInvariantsButtonActionPerformed(evt);
             }
         });
 
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane3.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+        startColumnTextField.setText("0");
+        startColumnTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startColumnTextFieldActionPerformed(evt);
+            }
+        });
+
+        invariantTableScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        invariantTableScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        invariantTableScrollPane.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                jScrollPane3MouseWheelMoved(evt);
+                invariantTableScrollPaneMouseWheelMoved(evt);
             }
         });
 
         //readInData();
         readInMCM();
         showSubsetData(0,10);
-        jTable1.setModel(tModel1);
-        jScrollPane3.setViewportView(jTable1);
+        invariantTable.setModel(tModel1);
+        invariantTableScrollPane.setViewportView(invariantTable);
 
-        jTextField2.setText("0");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        endColumnTextField.setText("10");
+        endColumnTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jTextField3.setText("10");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                endColumnTextFieldActionPerformed(evt);
             }
         });
 
         jLabel5.setText(" -");
 
-        jButton10.setText("Next 10");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        next10Button.setText("Next 10");
+        next10Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                next10ButtonActionPerformed(evt);
             }
         });
 
-        jButton11.setText("Previous 10");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        last10Button.setText("Previous 10");
+        last10Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                last10ButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout tab3PanelLayout = new javax.swing.GroupLayout(tab3Panel);
+        tab3Panel.setLayout(tab3PanelLayout);
+        tab3PanelLayout.setHorizontalGroup(
+            tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab3PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(invariantTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
+                    .addGroup(tab3PanelLayout.createSequentialGroup()
+                        .addComponent(refreshInvariantsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(startColumnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButton11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 592, Short.MAX_VALUE)
-                        .addComponent(jButton10)))
+                        .addComponent(endColumnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(tab3PanelLayout.createSequentialGroup()
+                        .addComponent(last10Button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 613, Short.MAX_VALUE)
+                        .addComponent(next10Button)))
                 .addContainerGap())
         );
 
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton10, jButton11});
+        tab3PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {last10Button, next10Button});
 
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        tab3PanelLayout.setVerticalGroup(
+            tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab3PanelLayout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7))
+                    .addComponent(startColumnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endColumnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshInvariantsButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(invariantTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton11)
-                    .addComponent(jButton10))
+                .addGroup(tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(last10Button)
+                    .addComponent(next10Button))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -1696,12 +1719,10 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         };*/
 
-        jTabbedPane1.addTab("Inspect Invariants", jPanel5);
-        jPanel5.setVisible(true);
+        jTabbedPane1.addTab("Inspect Invariants", tab3Panel);
+        //tab3Panel.setVisible(true);
 
-        jLabel12.setText("Execution and Output");
-
-        jButton14.setText("Run");
+        jButton14.setText("Run Builddbs");
 
         jCheckBox1.setText("Write to file");
 
@@ -1717,64 +1738,199 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jButton12.setText("Find File");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jCheckBox3)
-                        .addComponent(jCheckBox2)
-                        .addComponent(jCheckBox1))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton12))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton13))
-                        .addGroup(jPanel6Layout.createSequentialGroup()
-                            .addComponent(jLabel12)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton14))))
-                .addContainerGap(557, Short.MAX_VALUE))
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+
+        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel13.setText("Choose Output File Name");
+
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+
+        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+
+        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+
+        jComboBox11.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+
+        jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+
+        jButton1.setText("Search for Graph");
+
+        jLabel12.setText("Options");
+
+        javax.swing.GroupLayout tab5PanelLayout = new javax.swing.GroupLayout(tab5Panel);
+        tab5Panel.setLayout(tab5PanelLayout);
+        tab5PanelLayout.setHorizontalGroup(
+            tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab5PanelLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab5PanelLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jCheckBox3))
+                    .addComponent(jCheckBox2)
+                    .addGroup(tab5PanelLayout.createSequentialGroup()
+                        .addComponent(jCheckBox1)
+                        .addGap(12, 12, 12))
+                    .addGroup(tab5PanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tab5PanelLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel13)))
+                    .addComponent(jLabel12)
+                    .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab5PanelLayout.createSequentialGroup()
+                            .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(tab5PanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton12))
+                                .addGroup(tab5PanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel11)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton13))
+                                .addComponent(jButton14))
+                            .addGap(135, 135, 135)
+                            .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(tab5PanelLayout.createSequentialGroup()
+                                    .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(12, 12, 12)
+                                    .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(tab5PanelLayout.createSequentialGroup()
+                                    .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(tab5PanelLayout.createSequentialGroup()
+                                            .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(12, 12, 12)
+                                            .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jComboBox13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton1))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addGap(105, 105, 105))
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel11, jLabel12});
+        tab5PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel11});
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton12, jButton13, jButton14});
+        tab5PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton12, jButton13, jButton14});
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCheckBox1, jCheckBox2, jCheckBox3});
+        tab5PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCheckBox1, jCheckBox2, jCheckBox3});
 
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jButton12))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        tab5PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox12, jComboBox2, jComboBox3, jComboBox6, jComboBox7, jComboBox8});
+
+        tab5PanelLayout.setVerticalGroup(
+            tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tab5PanelLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab5PanelLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tab5PanelLayout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(jButton12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(jButton13))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab5PanelLayout.createSequentialGroup()
+                        .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tab5PanelLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
                     .addComponent(jButton14))
                 .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
                 .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox3)
-                .addGap(345, 345, 345))
+                .addGap(85, 85, 85))
         );
 
-        jTabbedPane1.addTab("Run Program", jPanel6);
+        tab5PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton12, jButton13, jButton14});
+
+        tab5PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel10, jLabel11});
+
+        tab5PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCheckBox1, jCheckBox2});
+
+        tab5PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox1, jComboBox10, jComboBox11, jComboBox12, jComboBox13, jComboBox2, jComboBox3, jComboBox4, jComboBox5, jComboBox6, jComboBox7, jComboBox8, jComboBox9, jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6});
+
+        jTabbedPane1.addTab("Run Program", tab5Panel);
+        //tab5Panel.setVisible(true);
 
         jMenu1.setText("File");
 
@@ -1803,7 +1959,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1817,11 +1973,11 @@ public class G6ViewPlus extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        DrawGraph(jPanel1.getGraphics());
+        DrawGraph(mainGraphPanel.getGraphics());
     }//GEN-LAST:event_formWindowActivated
 
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
-        DrawGraph(jPanel1.getGraphics());
+        DrawGraph(mainGraphPanel.getGraphics());
     }//GEN-LAST:event_formComponentMoved
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -1829,78 +1985,78 @@ public class G6ViewPlus extends javax.swing.JFrame
         Tools.Pendants.main(args);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void graphNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphNameTextFieldActionPerformed
         // Old stuff
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_graphNameTextFieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void graphGoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphGoButtonActionPerformed
 
         /*NODE: Removing other modes may inconvinience user*/
         //        jToggleButton1.setSelected(false); //edit mode set to off
         //        jToggleButton2.setSelected(false); //vertex delete mode set to off
         //        jToggleButton3.setSelected(false); //edge delete mode set to off
         //        jToggleButton4.setSelected(false); //edit highlight mode set to off
-        String g6 = jTextField1.getText();
+        String g6 = graphNameTextField.getText();
         if (!g6.isEmpty()) {
-            DrawFromG6(g6, jPanel1);
+            DrawFromG6(g6, mainGraphPanel);
         }
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_graphGoButtonActionPerformed
 
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-        if (jToggleButton4.isSelected()) {
-            jToggleButton1.setSelected(false);
-            jToggleButton2.setSelected(false);
-            jToggleButton3.setSelected(false);
+    private void highlightingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_highlightingButtonActionPerformed
+        if (highlightingButton.isSelected()) {
+            insertButton.setSelected(false);
+            deleteVertexButton.setSelected(false);
+            deleteEdgeButton.setSelected(false);
         }
-}//GEN-LAST:event_jToggleButton4ActionPerformed
+}//GEN-LAST:event_highlightingButtonActionPerformed
 
-    private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
-        edge_width = jSlider2.getValue();
+    private void edgeSizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_edgeSizeSliderStateChanged
+        edge_width = edgeSizeSlider.getValue();
         VisualEdge temp;
         for (int i = 0; i < edges.size(); i++) {
             temp = (VisualEdge) edges.get(i);
-            temp.SetWidth(jSlider2.getValue());
+            temp.SetWidth(edgeSizeSlider.getValue());
         }
-        DrawGraph(jPanel1.getGraphics());
-}//GEN-LAST:event_jSlider2StateChanged
+        DrawGraph(mainGraphPanel.getGraphics());
+}//GEN-LAST:event_edgeSizeSliderStateChanged
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        if (jToggleButton4.isSelected() && !jList1.isSelectionEmpty()) {
+    private void edgeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edgeComboBoxActionPerformed
+        if (highlightingButton.isSelected() && !edgeList.isSelectionEmpty()) {
             VisualEdge e;
-            int[] selected = jList1.getSelectedIndices();
+            int[] selected = edgeList.getSelectedIndices();
             for (int i = 0; i < selected.length; i++) {
                 e = (VisualEdge) edges.get(selected[i]);
-                e.SetColor((String) jComboBox2.getSelectedItem());
+                e.SetColor((String) edgeComboBox.getSelectedItem());
             }
-            DrawGraph(jPanel1.getGraphics());
+            DrawGraph(mainGraphPanel.getGraphics());
         }
-}//GEN-LAST:event_jComboBox2ActionPerformed
+}//GEN-LAST:event_edgeComboBoxActionPerformed
 
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-        if (jToggleButton2.isSelected()) {
-            jToggleButton1.setSelected(false); //turn off edit mode
-            jToggleButton4.setSelected(false); //turn off highlight mode
+    private void deleteEdgeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEdgeButtonActionPerformed
+        if (deleteVertexButton.isSelected()) {
+            insertButton.setSelected(false); //turn off edit mode
+            highlightingButton.setSelected(false); //turn off highlight mode
         }
-}//GEN-LAST:event_jToggleButton3ActionPerformed
+}//GEN-LAST:event_deleteEdgeButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void setEdgeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setEdgeButtonActionPerformed
         VisualEdge e;
 
         for (int i = 0; i < edges.size(); i++) {
             e = (VisualEdge) edges.get(i);
-            e.SetColor((String) jComboBox2.getSelectedItem());
+            e.SetColor((String) edgeComboBox.getSelectedItem());
         }
 
-        DrawGraph(jPanel1.getGraphics());
-}//GEN-LAST:event_jButton3ActionPerformed
+        DrawGraph(mainGraphPanel.getGraphics());
+}//GEN-LAST:event_setEdgeButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void saveGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveGraphButtonActionPerformed
 
 
         String filename = JOptionPane.showInputDialog("Please enter a name for your graph");
         File saveFile = new File(filename + ".jpg");
         //Image drawing = createImage(jPanel1.getSize().width,jPanel1.getSize().height);
-        BufferedImage bi = new BufferedImage(jPanel1.getSize().width, jPanel1.getSize().height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage bi = new BufferedImage(mainGraphPanel.getSize().width, mainGraphPanel.getSize().height, BufferedImage.TYPE_INT_RGB);
         Graphics g = bi.getGraphics();
         DrawGraph(g);
         try {
@@ -1912,7 +2068,7 @@ public class G6ViewPlus extends javax.swing.JFrame
 
 
 
-        String g6Text = jTextField1.getText();
+        String g6Text = graphNameTextField.getText();
         String edgeList = EdgeListToString();
 
 
@@ -1932,80 +2088,80 @@ public class G6ViewPlus extends javax.swing.JFrame
         } catch (IOException ex) {
             Logger.getLogger(G6ViewPlus.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_saveGraphButtonActionPerformed
 
-    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        vertex_diam = jSlider1.getValue();
+    private void vertexSizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_vertexSizeSliderStateChanged
+        vertex_diam = vertexSizeSlider.getValue();
         VisualVertex temp;
         for (int i = 0; i < vertices.size(); i++) {
             temp = (VisualVertex) vertices.get(i);
-            temp.SetDiam(jSlider1.getValue());
+            temp.SetDiam(vertexSizeSlider.getValue());
         }
-        DrawGraph(jPanel1.getGraphics());
-}//GEN-LAST:event_jSlider1StateChanged
+        DrawGraph(mainGraphPanel.getGraphics());
+}//GEN-LAST:event_vertexSizeSliderStateChanged
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        if (jToggleButton2.isSelected()) {
-            jToggleButton1.setSelected(false); //turn off edit mode
-            jToggleButton4.setSelected(false); //turn off highlight mode
+    private void deleteVertexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVertexButtonActionPerformed
+        if (deleteVertexButton.isSelected()) {
+            insertButton.setSelected(false); //turn off edit mode
+            highlightingButton.setSelected(false); //turn off highlight mode
         }
-}//GEN-LAST:event_jToggleButton2ActionPerformed
+}//GEN-LAST:event_deleteVertexButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void setVertexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setVertexButtonActionPerformed
         VisualVertex v;
 
         for (int i = 0; i < vertices.size(); i++) {
             v = (VisualVertex) vertices.get(i);
-            v.SetColor((String) jComboBox1.getSelectedItem());
+            v.SetColor((String) vertexComboBox.getSelectedItem());
         }
 
-        DrawGraph(jPanel1.getGraphics());
-}//GEN-LAST:event_jButton2ActionPerformed
+        DrawGraph(mainGraphPanel.getGraphics());
+}//GEN-LAST:event_setVertexButtonActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        if (jToggleButton1.isSelected()) {
-            jToggleButton4.setSelected(false);
-            jToggleButton3.setSelected(false);
-            jToggleButton2.setSelected(false);
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        if (insertButton.isSelected()) {
+            highlightingButton.setSelected(false);
+            deleteEdgeButton.setSelected(false);
+            deleteVertexButton.setSelected(false);
 
         }
-}//GEN-LAST:event_jToggleButton1ActionPerformed
+}//GEN-LAST:event_insertButtonActionPerformed
 
-    private void jToggleButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jToggleButton1StateChanged
+    private void insertButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_insertButtonStateChanged
         //if(jToggleButton1.isSelected())
         //{
         UpdateMatrix();
-        jTextField1.setText("");
-        jTextField1.setText(GetG6(matrix));
+        graphNameTextField.setText("");
+        graphNameTextField.setText(GetG6(matrix));
         //}
-}//GEN-LAST:event_jToggleButton1StateChanged
+}//GEN-LAST:event_insertButtonStateChanged
 
-    private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
+    private void mainGraphPanelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainGraphPanelMouseMoved
         int old = selected_index;
         selected_index = VertexInLocation(evt.getPoint());
         if (old != selected_index) {
-            DrawGraph(jPanel1.getGraphics());
+            DrawGraph(mainGraphPanel.getGraphics());
         }
-}//GEN-LAST:event_jPanel1MouseMoved
+}//GEN-LAST:event_mainGraphPanelMouseMoved
 
-    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        if (jToggleButton1.isSelected() && !evt.isShiftDown()) {
+    private void mainGraphPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainGraphPanelMouseDragged
+        if (insertButton.isSelected() && !evt.isShiftDown()) {
             selected_index = VertexInLocation(evt.getPoint());
-            DrawGraph(jPanel1.getGraphics());
+            DrawGraph(mainGraphPanel.getGraphics());
         } else if (selected_index != -1) {
             VisualVertex temp;
             temp = (VisualVertex) vertices.get(selected_index);
-            temp.SetCenter(jPanel1.getMousePosition());
-            DrawGraph(jPanel1.getGraphics());
+            temp.SetCenter(mainGraphPanel.getMousePosition());
+            DrawGraph(mainGraphPanel.getGraphics());
         }
-}//GEN-LAST:event_jPanel1MouseDragged
+}//GEN-LAST:event_mainGraphPanelMouseDragged
 
-    private void jPanel1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentResized
-        DrawGraph(jPanel1.getGraphics());
-}//GEN-LAST:event_jPanel1ComponentResized
+    private void mainGraphPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mainGraphPanelComponentResized
+        DrawGraph(mainGraphPanel.getGraphics());
+}//GEN-LAST:event_mainGraphPanelComponentResized
 
-    private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-        if (jToggleButton1.isSelected() && //is in edit mode
+    private void mainGraphPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainGraphPanelMouseReleased
+        if (insertButton.isSelected() && //is in edit mode
                 !evt.isShiftDown() && //shift is not held
                 evt.getButton() == MouseEvent.BUTTON1) //the left mouse button is released
         {
@@ -2015,9 +2171,9 @@ public class G6ViewPlus extends javax.swing.JFrame
             if (e.GetB() == -2) {
                 if (selected_index == -1) {
                     VisualVertex n = new VisualVertex();
-                    n.SetColor((String) jComboBox1.getSelectedItem());
+                    n.SetColor((String) vertexComboBox.getSelectedItem());
                     n.SetCenter(evt.getPoint());
-                    n.SetDiam(jSlider1.getValue());
+                    n.SetDiam(vertexSizeSlider.getValue());
                     vertices.add(n);
                     e.SetB(vertices.size() - 1);
 
@@ -2035,14 +2191,14 @@ public class G6ViewPlus extends javax.swing.JFrame
 
             // selected_index = -1;
             UpdateMatrix();
-            jTextField1.setText("");
-            jTextField1.setText(GetG6(matrix));
-            DrawGraph(jPanel1.getGraphics());
+            graphNameTextField.setText("");
+            graphNameTextField.setText(GetG6(matrix));
+            DrawGraph(mainGraphPanel.getGraphics());
             UpdateEdgeListDisplay();
         }
-}//GEN-LAST:event_jPanel1MouseReleased
+}//GEN-LAST:event_mainGraphPanelMouseReleased
 
-    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+    private void mainGraphPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainGraphPanelMousePressed
         //Click and hold: Always for moving nodes
 
         //this bit is redundant sincehovering selects vertex
@@ -2050,27 +2206,27 @@ public class G6ViewPlus extends javax.swing.JFrame
         selected_index = VertexInLocation(evt.getPoint());*/
 
         //edit mode is active&& shift isn't pressed, create edge
-        if (jToggleButton1.isSelected() && !evt.isShiftDown() && selected_index != -1) {
+        if (insertButton.isSelected() && !evt.isShiftDown() && selected_index != -1) {
             if (evt.getButton() == MouseEvent.BUTTON1) //left?
             {
                 VisualEdge n = new VisualEdge();
                 n.SetA(selected_index);
                 n.SetB(-2); //code for mouse location
-                n.SetColor((String) jComboBox2.getSelectedItem());
-                n.SetWidth(jSlider2.getValue());
+                n.SetColor((String) edgeComboBox.getSelectedItem());
+                n.SetWidth(edgeSizeSlider.getValue());
                 edges.add(n);
             } else//other button
             {
             }
         }
-    }//GEN-LAST:event_jPanel1MousePressed
+    }//GEN-LAST:event_mainGraphPanelMousePressed
 
-    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
-        DrawGraph(jPanel1.getGraphics());
-}//GEN-LAST:event_jPanel1MouseEntered
+    private void mainGraphPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainGraphPanelMouseEntered
+        DrawGraph(mainGraphPanel.getGraphics());
+}//GEN-LAST:event_mainGraphPanelMouseEntered
 
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        if (jToggleButton2.isSelected()) {//vertex delete mode selected
+    private void mainGraphPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mainGraphPanelMouseClicked
+        if (deleteVertexButton.isSelected()) {//vertex delete mode selected
             if (selected_index != -1) {
                 //Kill all adjacent edges
                 VisualEdge e;
@@ -2099,13 +2255,13 @@ public class G6ViewPlus extends javax.swing.JFrame
                 selected_index = -1;
 
                 UpdateMatrix();
-                jTextField1.setText("");
-                jTextField1.setText(GetG6(matrix));
+                graphNameTextField.setText("");
+                graphNameTextField.setText(GetG6(matrix));
                 UpdateEdgeListDisplay();
-                DrawGraph(jPanel1.getGraphics());
+                DrawGraph(mainGraphPanel.getGraphics());
             }
 
-        } else if (jToggleButton3.isSelected()) //delete edge mode is uniquely selected
+        } else if (deleteEdgeButton.isSelected()) //delete edge mode is uniquely selected
         {//vertex delete mode selected
             if (selected_index != -1) {
                 //Highlight all adjacent edges to the clicked vertices
@@ -2122,79 +2278,79 @@ public class G6ViewPlus extends javax.swing.JFrame
                 for (int i = 0; i < index_array.length; i++) {
                     index_array[i] = (int) Integer.decode(indices.get(i).toString());
                 }
-                jList1.setSelectedIndices(index_array);
+                edgeList.setSelectedIndices(index_array);
                 // DrawGraph(jPanel1.getGraphics()); //Note rendered highlighting of edges yet
             }
 
         }
 
-        if (jToggleButton4.isSelected()) {
+        if (highlightingButton.isSelected()) {
             if (selected_index != -1) {
                 VisualVertex v;
                 v = (VisualVertex) vertices.get(selected_index);
-                v.SetColor((String) jComboBox1.getSelectedItem());
-                DrawGraph(jPanel1.getGraphics());
+                v.SetColor((String) vertexComboBox.getSelectedItem());
+                DrawGraph(mainGraphPanel.getGraphics());
             }
         }
-        if (jToggleButton1.isSelected())//edit mode is active
+        if (insertButton.isSelected())//edit mode is active
         {
             if (evt.getButton() == MouseEvent.BUTTON1 && selected_index == -1) //left?
             {
                 VisualVertex n = new VisualVertex();
-                n.SetColor((String) jComboBox1.getSelectedItem());
+                n.SetColor((String) vertexComboBox.getSelectedItem());
                 n.SetCenter(evt.getPoint());
-                n.SetDiam(jSlider1.getValue());
+                n.SetDiam(vertexSizeSlider.getValue());
                 vertices.add(n);
 
                 selected_index = vertices.size() - 1;
                 UpdateMatrix();
-                jTextField1.setText("");
-                jTextField1.setText(GetG6(matrix));
-                DrawGraph(jPanel1.getGraphics());
+                graphNameTextField.setText("");
+                graphNameTextField.setText(GetG6(matrix));
+                DrawGraph(mainGraphPanel.getGraphics());
             } else//other button
             {
             }
         }
-}//GEN-LAST:event_jPanel1MouseClicked
+}//GEN-LAST:event_mainGraphPanelMouseClicked
 
-    private void jList1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseReleased
+    private void edgeListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edgeListMouseReleased
         if (!evt.isShiftDown() && !evt.isControlDown()) {
-            jList1.clearSelection();
+            edgeList.clearSelection();
         }
-}//GEN-LAST:event_jList1MouseReleased
+}//GEN-LAST:event_edgeListMouseReleased
 
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+    private void edgeListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edgeListMouseClicked
         //BUG: id clicked on empty space below last edge
         //last edge is highlighted
-        if (jToggleButton4.isSelected() && !evt.isControlDown() && !evt.isShiftDown()) {
+        if (highlightingButton.isSelected() && !evt.isControlDown() && !evt.isShiftDown()) {
             VisualEdge e;
-            int index = jList1.locationToIndex(jList1.getMousePosition());
+            int index = edgeList.locationToIndex(edgeList.getMousePosition());
             if (index != -1) {
                 e = (VisualEdge) edges.get(index);
-                e.SetColor((String) jComboBox2.getSelectedItem());
-                DrawGraph(jPanel1.getGraphics());
+                e.SetColor((String) edgeComboBox.getSelectedItem());
+                DrawGraph(mainGraphPanel.getGraphics());
             }
         }
-        if (jToggleButton3.isSelected())//in delete edge mode
+        if (deleteEdgeButton.isSelected())//in delete edge mode
         {
-            int index = jList1.locationToIndex(jList1.getMousePosition());
+            int index = edgeList.locationToIndex(edgeList.getMousePosition());
             if (index != -1) {
                 edges.remove(index);
             }
 
             UpdateMatrix();
-            jTextField1.setText("");
-            jTextField1.setText(GetG6(matrix));
+            graphNameTextField.setText("");
+            graphNameTextField.setText(GetG6(matrix));
             UpdateEdgeListDisplay();
-            DrawGraph(jPanel1.getGraphics());
+            DrawGraph(mainGraphPanel.getGraphics());
 
         }
-}//GEN-LAST:event_jList1MouseClicked
+}//GEN-LAST:event_edgeListMouseClicked
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void refreshInvariantsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshInvariantsButtonActionPerformed
         //Updating data for tab 3 to desired range
-        showSubsetData(Integer.parseInt(jTextField2.getText()), Integer.parseInt(jTextField3.getText()));
-}//GEN-LAST:event_jButton7ActionPerformed
+        showSubsetData(Integer.parseInt(startColumnTextField.getText()), Integer.parseInt(endColumnTextField.getText()));
+}//GEN-LAST:event_refreshInvariantsButtonActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // deletes all edges and vertices and resets the graph.
@@ -2209,36 +2365,36 @@ public class G6ViewPlus extends javax.swing.JFrame
         }
             selected_index = -1;
             UpdateMatrix();
-            jTextField1.setText("");
-            jTextField1.setText(GetG6(matrix));
+            graphNameTextField.setText("");
+            graphNameTextField.setText(GetG6(matrix));
             UpdateEdgeListDisplay();
-            DrawGraph(jPanel1.getGraphics());
+            DrawGraph(mainGraphPanel.getGraphics());
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void writeDriverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_writeDriverButtonActionPerformed
         //convert strings to appropriate numbers
         for(int i=0; i < graphListModel.size();i++)
         {
             convertToArray(graphListModel.get(i).toString());
         }
         writeDriver();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_writeDriverButtonActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void startColumnTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startColumnTextFieldActionPerformed
         // Not going to do anything, textfield just for entering data
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_startColumnTextFieldActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void endColumnTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endColumnTextFieldActionPerformed
         // Not going to do anything, textfield just for entering data
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_endColumnTextFieldActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void invariantNumberTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invariantNumberTextFieldActionPerformed
         // Not going to do anything, textfield just for entering data
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_invariantNumberTextFieldActionPerformed
 
-    private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
+    private void invariantTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_invariantTreeValueChanged
                 DefaultMutableTreeNode readNode = (DefaultMutableTreeNode)
-                           jTree1.getLastSelectedPathComponent();
+                           invariantTree.getLastSelectedPathComponent();
         if (readNode == null)
             return;
 
@@ -2248,35 +2404,48 @@ public class G6ViewPlus extends javax.swing.JFrame
             graphListModel.addElement(nodeInfo.toString() + "::" + readNode.getParent().getParent().toString());
 
         }
-    }//GEN-LAST:event_jTree1ValueChanged
+    }//GEN-LAST:event_invariantTreeValueChanged
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void addInvariantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInvariantButtonActionPerformed
         //TODO:input checking
-        if (!graphListModel.contains("Custom Invariant: " + jTextField4.getText() + " " + jTextField5.getText() + " " + jTextField6.getText()))
-            graphListModel.addElement("Custom Invariant: " + jTextField4.getText() + " " + jTextField5.getText() + " " + jTextField6.getText());
-    }//GEN-LAST:event_jButton6ActionPerformed
+        if(graphTypeTitle.length > 4 || invCatTitle.length > 7){
+            if (!graphListModel.contains("Custom Invariant: " + graphNumberTextField.getText() + " " + categoryNumberTextField.getText() + " " + invariantNumberTextField.getText()))
+                graphListModel.addElement("Custom Invariant: " + graphNumberTextField.getText() + " " + categoryNumberTextField.getText() + " " + invariantNumberTextField.getText());
+        }
+    }//GEN-LAST:event_addInvariantButtonActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        jTextField2.setText(Integer.toString(Integer.parseInt(jTextField2.getText()) + 10));
-        jTextField3.setText(Integer.toString(Integer.parseInt(jTextField3.getText()) + 10));
-        showSubsetData(Integer.parseInt(jTextField2.getText()), Integer.parseInt(jTextField3.getText()));
+    private void next10ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next10ButtonActionPerformed
+        startColumnTextField.setText(Integer.toString(Integer.parseInt(startColumnTextField.getText()) + 10));
+        endColumnTextField.setText(Integer.toString(Integer.parseInt(endColumnTextField.getText()) + 10));
+        showSubsetData(Integer.parseInt(startColumnTextField.getText()), Integer.parseInt(endColumnTextField.getText()));
 
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_next10ButtonActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void resetListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetListButtonActionPerformed
         graphListModel.removeAllElements();
         initializeVectorArray();
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_resetListButtonActionPerformed
 
-    private void jScrollPane3MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jScrollPane3MouseWheelMoved
+    private void invariantTableScrollPaneMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_invariantTableScrollPaneMouseWheelMoved
         // need to figure out how to get rid of this.
-    }//GEN-LAST:event_jScrollPane3MouseWheelMoved
+    }//GEN-LAST:event_invariantTableScrollPaneMouseWheelMoved
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        jTextField2.setText(Integer.toString(Integer.parseInt(jTextField2.getText()) - 10));
-        jTextField3.setText(Integer.toString(Integer.parseInt(jTextField3.getText()) - 10));
-        showSubsetData(Integer.parseInt(jTextField2.getText()), Integer.parseInt(jTextField3.getText()));
-    }//GEN-LAST:event_jButton11ActionPerformed
+    private void last10ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_last10ButtonActionPerformed
+        if(Integer.parseInt(startColumnTextField.getText()) < 10) {
+            startColumnTextField.setText("0");
+        }
+        else
+        {
+        startColumnTextField.setText(Integer.toString(Integer.parseInt(startColumnTextField.getText()) - 10));
+        }
+        if(Integer.parseInt(startColumnTextField.getText()) < 10) {
+            endColumnTextField.setText("10");
+        }
+        else {
+            endColumnTextField.setText(Integer.toString(Integer.parseInt(endColumnTextField.getText()) - 10));
+        }
+        showSubsetData(Integer.parseInt(startColumnTextField.getText()), Integer.parseInt(endColumnTextField.getText()));
+    }//GEN-LAST:event_last10ButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2291,30 +2460,55 @@ public class G6ViewPlus extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addInvariantButton;
+    private javax.swing.JTextField categoryNumberTextField;
+    private javax.swing.JToggleButton deleteEdgeButton;
+    private javax.swing.JToggleButton deleteVertexButton;
+    private javax.swing.JComboBox edgeComboBox;
+    private javax.swing.JList edgeList;
+    private javax.swing.JScrollPane edgeListScrollPane;
+    private javax.swing.JPanel edgeMenuPanel;
+    private javax.swing.JSlider edgeSizeSlider;
+    private javax.swing.JTextField endColumnTextField;
+    private javax.swing.JButton graphGoButton;
+    private javax.swing.JTextField graphNameTextField;
+    private javax.swing.JTextField graphNumberTextField;
+    private javax.swing.JToggleButton highlightingButton;
+    private javax.swing.JToggleButton insertButton;
+    private javax.swing.JList invariantList;
+    private javax.swing.JScrollPane invariantListScrollPane;
+    private javax.swing.JTextField invariantNumberTextField;
+    private javax.swing.JTable invariantTable;
+    public javax.swing.JScrollPane invariantTableScrollPane;
+    private javax.swing.JTree invariantTree;
+    private javax.swing.JScrollPane invariantTreeScrollPane;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    public javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox10;
+    private javax.swing.JComboBox jComboBox11;
+    private javax.swing.JComboBox jComboBox12;
+    private javax.swing.JComboBox jComboBox13;
     private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JComboBox jComboBox6;
+    private javax.swing.JComboBox jComboBox7;
+    private javax.swing.JComboBox jComboBox8;
+    private javax.swing.JComboBox jComboBox9;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2323,38 +2517,36 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSlider jSlider1;
-    private javax.swing.JSlider jSlider2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JButton last10Button;
+    private javax.swing.JPanel mainGraphPanel;
+    private javax.swing.JButton next10Button;
+    private javax.swing.JButton refreshInvariantsButton;
+    private javax.swing.JButton resetListButton;
+    private javax.swing.JButton saveGraphButton;
+    private javax.swing.JButton setEdgeButton;
+    private javax.swing.JButton setVertexButton;
+    private javax.swing.JTextField startColumnTextField;
+    private javax.swing.JPanel tab1Panel;
+    private javax.swing.JPanel tab2Panel;
+    private javax.swing.JPanel tab3Panel;
+    private javax.swing.JPanel tab5Panel;
+    private javax.swing.JComboBox vertexComboBox;
+    private javax.swing.JPanel vertexMenuPanel;
+    private javax.swing.JSlider vertexSizeSlider;
+    public javax.swing.JButton writeDriverButton;
     // End of variables declaration//GEN-END:variables
 }
