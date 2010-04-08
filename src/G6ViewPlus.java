@@ -1135,11 +1135,11 @@ public class G6ViewPlus extends javax.swing.JFrame
         mainGraphPanel.setLayout(mainGraphPanelLayout);
         mainGraphPanelLayout.setHorizontalGroup(
             mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 538, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
         mainGraphPanelLayout.setVerticalGroup(
             mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 555, Short.MAX_VALUE)
         );
 
         insertButton.setText("Insert");
@@ -1346,7 +1346,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(edgeListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(mainGraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(graphNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE))
+                    .addComponent(graphNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(highlightingButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1388,7 +1388,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                     .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton8)
                         .addComponent(graphGoButton)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("G6 Viewer", tab1Panel);
@@ -1522,7 +1522,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                                 .addComponent(invariantNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32))
                             .addGroup(tab2PanelLayout.createSequentialGroup()
-                                .addComponent(invariantListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                                .addComponent(invariantListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                                 .addContainerGap()))
                         .addGroup(tab2PanelLayout.createSequentialGroup()
                             .addComponent(addInvariantButton)
@@ -1663,7 +1663,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             .addGroup(tab3PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(invariantTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
+                    .addComponent(invariantTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
                     .addGroup(tab3PanelLayout.createSequentialGroup()
                         .addComponent(refreshInvariantsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
@@ -1674,7 +1674,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(endColumnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(tab3PanelLayout.createSequentialGroup()
                         .addComponent(last10Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 613, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 605, Short.MAX_VALUE)
                         .addComponent(next10Button)))
                 .addContainerGap())
         );
@@ -1696,7 +1696,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                 .addGroup(tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(last10Button)
                     .addComponent(next10Button))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         /*refresh = new ActionListener() {
@@ -1750,7 +1750,7 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
 
-        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<", ">", "=", "<=", "=>", "!=" }));
 
         jLabel13.setText("Choose Output File Name");
 
@@ -1781,9 +1781,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addGap(12, 12, 12)
                         .addComponent(jCheckBox3))
                     .addComponent(jCheckBox2)
-                    .addGroup(tab5PanelLayout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
-                        .addGap(12, 12, 12))
+                    .addComponent(jCheckBox1)
                     .addGroup(tab5PanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1900,7 +1898,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton14))
@@ -2408,7 +2406,7 @@ public class G6ViewPlus extends javax.swing.JFrame
 
     private void addInvariantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInvariantButtonActionPerformed
         //TODO:input checking
-        if(graphTypeTitle.length > 4 || invCatTitle.length > 7){
+        if(Integer.parseInt(graphNumberTextField.getText()) < 4 && Integer.parseInt(categoryNumberTextField.getText()) < 7){
             if (!graphListModel.contains("Custom Invariant: " + graphNumberTextField.getText() + " " + categoryNumberTextField.getText() + " " + invariantNumberTextField.getText()))
                 graphListModel.addElement("Custom Invariant: " + graphNumberTextField.getText() + " " + categoryNumberTextField.getText() + " " + invariantNumberTextField.getText());
         }
