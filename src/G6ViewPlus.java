@@ -65,6 +65,7 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
+import java.sql.*;//JK
 
 
 public class G6ViewPlus extends javax.swing.JFrame
@@ -1062,6 +1063,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -1135,11 +1137,11 @@ public class G6ViewPlus extends javax.swing.JFrame
         mainGraphPanel.setLayout(mainGraphPanelLayout);
         mainGraphPanelLayout.setHorizontalGroup(
             mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
         mainGraphPanelLayout.setVerticalGroup(
             mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 565, Short.MAX_VALUE)
         );
 
         insertButton.setText("Insert");
@@ -1346,7 +1348,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(edgeListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(mainGraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(graphNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE))
+                    .addComponent(graphNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(highlightingButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1522,7 +1524,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                                 .addComponent(invariantNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32))
                             .addGroup(tab2PanelLayout.createSequentialGroup()
-                                .addComponent(invariantListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                                .addComponent(invariantListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
                                 .addContainerGap()))
                         .addGroup(tab2PanelLayout.createSequentialGroup()
                             .addComponent(addInvariantButton)
@@ -1557,7 +1559,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(invariantNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
                         .addComponent(addInvariantButton))
-                    .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
+                    .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(writeDriverButton)
                 .addGap(14, 14, 14))
@@ -1663,7 +1665,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             .addGroup(tab3PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(invariantTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+                    .addComponent(invariantTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
                     .addGroup(tab3PanelLayout.createSequentialGroup()
                         .addComponent(refreshInvariantsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
@@ -1674,7 +1676,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(endColumnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(tab3PanelLayout.createSequentialGroup()
                         .addComponent(last10Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 605, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 593, Short.MAX_VALUE)
                         .addComponent(next10Button)))
                 .addContainerGap())
         );
@@ -1723,6 +1725,11 @@ public class G6ViewPlus extends javax.swing.JFrame
         //tab3Panel.setVisible(true);
 
         jButton14.setText("Run Builddbs");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jCheckBox1.setText("Write to file");
 
@@ -1739,16 +1746,37 @@ public class G6ViewPlus extends javax.swing.JFrame
         jButton12.setText("Find File");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setEditable(false);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
 
+        jTextField2.setEditable(false);
+
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
 
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+
+        jTextField3.setEditable(false);
 
         jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<", ">", "=", "<=", "=>", "!=" }));
 
@@ -1756,13 +1784,34 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
 
+        jTextField4.setEditable(false);
+
+        jTextField5.setEditable(false);
+
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
 
         jComboBox9.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+        jComboBox9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox9ActionPerformed(evt);
+            }
+        });
 
         jComboBox10.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+        jComboBox10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox10ActionPerformed(evt);
+            }
+        });
 
         jComboBox11.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Attribute 1", "Attribute 2", "Attribute 3", "Attribute 4" }));
+        jComboBox11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox11ActionPerformed(evt);
+            }
+        });
+
+        jTextField6.setEditable(false);
 
         jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
 
@@ -1898,7 +1947,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton14))
@@ -1928,7 +1977,6 @@ public class G6ViewPlus extends javax.swing.JFrame
         tab5PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox1, jComboBox10, jComboBox11, jComboBox12, jComboBox13, jComboBox2, jComboBox3, jComboBox4, jComboBox5, jComboBox6, jComboBox7, jComboBox8, jComboBox9, jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6});
 
         jTabbedPane1.addTab("Run Program", tab5Panel);
-        //tab5Panel.setVisible(true);
 
         jMenu1.setText("File");
 
@@ -1946,6 +1994,14 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         });
         jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Database Login");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
 
@@ -2445,6 +2501,69 @@ public class G6ViewPlus extends javax.swing.JFrame
         showSubsetData(Integer.parseInt(startColumnTextField.getText()), Integer.parseInt(endColumnTextField.getText()));
     }//GEN-LAST:event_last10ButtonActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO: open a dialog window to ask a username and password
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO: run the number crunching program
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        if(jComboBox1.getSelectedIndex() == 1) {
+            jTextField1.setEditable(true);
+        }
+        else {
+            jTextField1.setEditable(false);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        if(jComboBox4.getSelectedIndex() == 1) {
+            jTextField2.setEditable(true);
+        }
+        else {
+            jTextField2.setEditable(false);
+        }
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        if(jComboBox5.getSelectedIndex() == 1) {
+            jTextField3.setEditable(true);
+        }
+        else {
+            jTextField3.setEditable(false);
+        }
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
+    private void jComboBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox9ActionPerformed
+        if(jComboBox9.getSelectedIndex() == 1) {
+            jTextField5.setEditable(true);
+        }
+        else {
+            jTextField5.setEditable(false);
+        }
+    }//GEN-LAST:event_jComboBox9ActionPerformed
+
+    private void jComboBox11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox11ActionPerformed
+        if(jComboBox11.getSelectedIndex() == 1) {
+            jTextField4.setEditable(true);
+        }
+        else {
+            jTextField4.setEditable(false);
+        }
+    }//GEN-LAST:event_jComboBox11ActionPerformed
+
+    private void jComboBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox10ActionPerformed
+        if(jComboBox10.getSelectedIndex() == 1) {
+            jTextField6.setEditable(true);
+        }
+        else {
+            jTextField6.setEditable(false);
+        }
+    }//GEN-LAST:event_jComboBox10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2520,6 +2639,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;

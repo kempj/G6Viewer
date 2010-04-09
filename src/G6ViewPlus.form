@@ -44,6 +44,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Database Login"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -119,7 +127,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="mainGraphPanel" max="32767" attributes="2"/>
                           </Group>
-                          <Component id="graphNameTextField" alignment="1" pref="626" max="32767" attributes="1"/>
+                          <Component id="graphNameTextField" alignment="1" pref="622" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -224,12 +232,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="530" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="526" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="555" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="565" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -564,7 +572,7 @@
                                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="invariantListScrollPane" pref="363" max="32767" attributes="0"/>
+                                      <Component id="invariantListScrollPane" pref="359" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -604,7 +612,7 @@
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Component id="addInvariantButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="invariantTreeScrollPane" pref="539" max="32767" attributes="1"/>
+                          <Component id="invariantTreeScrollPane" pref="547" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="writeDriverButton" min="-2" max="-2" attributes="0"/>
@@ -739,7 +747,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="invariantTableScrollPane" alignment="0" pref="777" max="32767" attributes="0"/>
+                          <Component id="invariantTableScrollPane" alignment="0" pref="773" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="refreshInvariantsButton" min="-2" pref="89" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -751,7 +759,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="last10Button" linkSize="8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="605" max="32767" attributes="0"/>
+                              <EmptySpace pref="593" max="32767" attributes="0"/>
                               <Component id="next10Button" linkSize="8" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -860,9 +868,6 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="tab5Panel">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//tab5Panel.setVisible(true);"/>
-          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Run Program">
@@ -1023,7 +1028,7 @@
                           </Group>
                           <Component id="jComboBox8" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton14" linkSize="9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1052,6 +1057,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Run Builddbs"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jCheckBox1">
               <Properties>
@@ -1099,8 +1107,14 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField1">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField1.setEditable(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox2">
               <Properties>
@@ -1127,6 +1141,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField2">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField2.setEditable(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox4">
               <Properties>
@@ -1139,6 +1156,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox4ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox5">
               <Properties>
@@ -1151,6 +1171,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox5ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox6">
               <Properties>
@@ -1165,6 +1188,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField3">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField3.setEditable(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox13">
               <Properties>
@@ -1200,8 +1226,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField4">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField4.setEditable(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField5">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField5.setEditable(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox8">
               <Properties>
@@ -1226,6 +1258,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox9ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox10">
               <Properties>
@@ -1238,6 +1273,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox10ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox11">
               <Properties>
@@ -1250,8 +1288,14 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox11ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField6">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField6.setEditable(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox12">
               <Properties>
