@@ -639,7 +639,7 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTree()"/>
                     <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="readInInv();"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="initializeVectorArray();&#xa;rootNode = new DefaultMutableTreeNode(&quot;All Invariants&quot;);&#xa;int k = 0;&#xa;int counter = 0;&#xa;String displayName;&#xa;/*String[] tempGraphType = {&quot;Original Graph&quot;,&quot;Complement of Graph&quot;,&#xa;                          &quot;2nd Power of Graph&quot;,&quot;2-Core of Graph&quot;};&#xa;//invCat ==&gt; Invariant Category&#xa;String[] tempInvCat = {&quot;Basic Invariants&quot;,&quot;Degree Invariants&quot;,&#xa;                       &quot;Distance Invariants&quot;,&quot;Vertex Subsets&quot;,&#xa;                       &quot;Invariants on Edges&quot;,&quot;Subgraph Invariants&quot;,&#xa;                       &quot;Properties&quot;};*/&#xa;&#xa;graphNode = new DefaultMutableTreeNode[graphTypeTitle.length];&#xa;invCatLeaf = new DefaultMutableTreeNode[graphTypeTitle.length][invCatTitle.length];&#xa;&#xa;for(int i = 0; i &lt; graphTypeTitle.length; i++)&#xa;{&#xa;    graphNode[i] = new DefaultMutableTreeNode(graphTypeTitle[i]);&#xa;    rootNode.add(graphNode[i]);&#xa;    counter = 0;&#xa;&#xa;    for(int j=0; j &lt; invCatTitle.length;j++)&#xa;    {&#xa;        invCatLeaf[i][j] = new DefaultMutableTreeNode(invCatTitle[j]);&#xa;        graphNode[i].add(invCatLeaf[i][j]);&#xa;        &#xa;        k = j + 1;&#xa;        while(counter &lt; invCount &amp;&amp; k  == Integer.parseInt(inputInv[counter].split(&quot; &quot;)[0]))&#xa;        {&#xa;            //formatting the string to be displayed in the tree&#xa;            displayName = &quot;&quot;;//inputInv[counter].split(&quot; &quot;)[2];&#xa;            for(int a = 2; a &lt; inputInv[counter].split(&quot; &quot;).length; a++)&#xa;            {&#xa;                displayName = displayName + &quot; &quot; + inputInv[counter].split(&quot; &quot;)[a];&#xa;            }&#xa;            //adding the formatted string to the tree&#xa;            invCatLeaf[i][j].add(new DefaultMutableTreeNode(displayName));&#xa;            counter++;&#xa;        }&#xa;    }&#xa;}&#xa;treeModel = new DefaultTreeModel(rootNode);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="initializeVectorArray();&#xa;rootNode = new DefaultMutableTreeNode(&quot;All Invariants&quot;);&#xa;int k = 0;&#xa;int counter = 0;&#xa;String displayName;&#xa;&#xa;graphNode = new DefaultMutableTreeNode[graphTypeTitle.length];&#xa;invCatLeaf = new DefaultMutableTreeNode[graphTypeTitle.length][invCatTitle.length];&#xa;&#xa;for(int i = 0; i &lt; graphTypeTitle.length; i++)&#xa;{&#xa;    graphNode[i] = new DefaultMutableTreeNode(graphTypeTitle[i]);&#xa;    rootNode.add(graphNode[i]);&#xa;    counter = 0;&#xa;&#xa;    for(int j=0; j &lt; invCatTitle.length;j++)&#xa;    {&#xa;        invCatLeaf[i][j] = new DefaultMutableTreeNode(invCatTitle[j]);&#xa;        graphNode[i].add(invCatLeaf[i][j]);&#xa;        &#xa;        k = j + 1;&#xa;        while(counter &lt; invCount &amp;&amp; k  == Integer.parseInt(inputInv[counter].split(&quot; &quot;)[0]))&#xa;        {&#xa;            //formatting the string to be displayed in the tree&#xa;            displayName = &quot;&quot;;//inputInv[counter].split(&quot; &quot;)[2];&#xa;            for(int a = 2; a &lt; inputInv[counter].split(&quot; &quot;).length; a++)&#xa;            {&#xa;                displayName = displayName + &quot; &quot; + inputInv[counter].split(&quot; &quot;)[a];&#xa;            }&#xa;            //adding the formatted string to the tree&#xa;            invCatLeaf[i][j].add(new DefaultMutableTreeNode(displayName));&#xa;            counter++;&#xa;        }&#xa;    }&#xa;}&#xa;treeModel = new DefaultTreeModel(rootNode);"/>
                     <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="G6ViewPlus_jTree1"/>
                   </AuxValues>
                 </Component>
@@ -653,9 +653,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="writeDriverButtonActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="/*done = new ActionListener()&#xa;{&#xa;    public void actionPerformed(ActionEvent e) {&#xa;        writeDriverButton.setEnabled(false);&#xa;        addInvariantButton.setEnabled(true);&#xa;        selection = false;&#xa;        &#xa;        try&#xa;        {&#xa;            FileOutputStream fos = new FileOutputStream(&quot;write.txt&quot;);&#xa;            DataOutputStream dos = new DataOutputStream(fos);&#xa;            int y=0;&#xa;            while(select_array[y] != null)&#xa;            {&#xa;                if(number_array[y] == 0)&#xa;                dos.writeChars(&quot;000&quot;);&#xa;                else if(number_array[y] &gt; 0 &amp;&amp; number_array[y]&lt;10)&#xa;                {&#xa;                    dos.writeChars(&quot;00&quot;);&#xa;                    dos.writeInt(number_array[y]);&#xa;                }&#xa;                else if(number_array[y] &gt; 9 &amp;&amp; number_array[y]&lt;99)&#xa;                {&#xa;                    dos.writeChar(&apos;0&apos;);&#xa;                    dos.writeInt(number_array[y]);&#xa;                }&#xa;                    dos.writeChar(&apos; &apos;);&#xa;                    dos.writeChars(select_array[y]);&#xa;                    dos.writeChar(&apos;\n&apos;);&#xa;                    y++;&#xa;            }&#xa;            dos.close();&#xa;        }&#xa;        catch (IOException b){}&#xa;        return;&#xa;    }&#xa;};&#xa;&#xa;writeDriverButton.addActionListener(done);*/"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//jButton5.setEnabled(false);"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//ActionListener done;"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </Component>
@@ -726,7 +723,6 @@
         </Container>
         <Container class="javax.swing.JPanel" name="tab3Panel">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//tab3Panel.setVisible(true);"/>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()"/>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="G6ViewPlus_jPanel5"/>
           </AuxValues>
@@ -794,10 +790,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshInvariantsButtonActionPerformed"/>
               </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="/*refresh = new ActionListener() {&#xa;       &#xa;        public void actionPerformed(ActionEvent e) {&#xa;            &#xa;            String[] new_columnname = { &quot;Graphs&quot;, select_array[0],&#xa;                                        select_array[1],&#xa;                                        select_array[2],&#xa;                                        select_array[3]&#xa;                                        };&#xa;            Object[][] new_data = {&#xa;    {null, null, null, null, null, null},&#xa;    {null, null, null, null, null, null},&#xa;    {null, null, null, null, null, null},&#xa;    {null, null, null, null, null, null},&#xa;    {null, null, null, null, null, null}&#xa;};*/"/>
-                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="/*return;&#xa;            }&#xa;            };*/"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="startColumnTextField">
               <Properties>
@@ -828,7 +820,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//readInData();&#xa;readInMCM();&#xa;showSubsetData(0,10);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//readInData();&#xa;readInData();&#xa;showSubsetData(0,10);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -881,8 +873,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jPanel2" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="jPanel3" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="filePanel" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="optionsPanel" alignment="0" max="32767" attributes="1"/>
                               </Group>
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           </Group>
@@ -894,7 +886,7 @@
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="14" max="-2" attributes="1"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="attributePanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -906,14 +898,14 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jSeparator1" alignment="1" min="-2" pref="541" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="jPanel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="attributePanel" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="1">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="56" max="32767" attributes="0"/>
+                                  <Component id="optionsPanel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="61" max="32767" attributes="0"/>
                                   <Component id="jSeparator2" min="-2" pref="27" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="filePanel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -930,7 +922,7 @@
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
             </Component>
-            <Container class="javax.swing.JPanel" name="jPanel1">
+            <Container class="javax.swing.JPanel" name="attributePanel">
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -944,35 +936,31 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jComboBox5" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox4" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox1" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo3" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo2" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField3" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="jTextField2" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="jTextField1" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField3" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField2" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jComboBox3" linkSize="12" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox2" linkSize="12" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBox6" linkSize="12" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jComboBox19" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox17" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox14" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox13" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo6" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo4" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo5" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField10" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField6" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
                                       <Component id="jTextField9" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="jTextField8" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField5" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -983,21 +971,20 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jComboBox11" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox10" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox20" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox25" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox21" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
-                                      <Component id="jComboBox9" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo8" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo9" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo11" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo10" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo12" alignment="0" min="-2" pref="154" max="-2" attributes="0"/>
+                                      <Component id="jComboBox13" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField6" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="jTextField11" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="jTextField12" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="jTextField13" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="jTextField4" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="jTextField5" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField9" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField12" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField11" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField10" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="attNumField8" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1006,7 +993,6 @@
                                           <Component id="jComboBox24" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBox22" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBox23" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBox8" linkSize="12" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBox7" linkSize="12" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -1014,27 +1000,45 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="attributeCombo1" min="-2" pref="154" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="attNumField1" min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jComboBox2" linkSize="12" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="attributeCombo7" min="-2" pref="154" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="attNumField7" min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jComboBox8" linkSize="12" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jComboBox1" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="attributeCombo1" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="attNumField1" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBox2" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox4" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField2" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="attributeCombo2" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="attNumField2" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBox3" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox5" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField3" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="attributeCombo3" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="attNumField3" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBox6" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -1047,56 +1051,56 @@
                               </Group>
                               <Component id="jComboBox15" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jComboBox17" min="-2" max="-2" attributes="0"/>
+                                  <Component id="attributeCombo4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jComboBox14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attNumField5" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jComboBox19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attNumField6" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jTextField9" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jComboBox13" linkSize="13" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jComboBox9" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField5" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="attributeCombo7" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="attNumField7" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBox8" linkSize="13" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox11" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField4" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="attributeCombo8" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="attNumField8" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBox7" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox10" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField6" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="attributeCombo9" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="attNumField9" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBox12" linkSize="13" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jComboBox25" min="-2" max="-2" attributes="0"/>
+                                  <Component id="attributeCombo10" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jComboBox20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attNumField11" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jComboBox21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField11" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attributeCombo12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="attNumField12" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jTextField13" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="attNumField10" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="37" pref="37" max="37" attributes="0"/>
                                   <Component id="jComboBox23" min="-2" max="-2" attributes="0"/>
@@ -1113,9 +1117,9 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextField4">
+                <Component class="javax.swing.JTextField" name="attNumField8">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField4.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField8.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox15">
@@ -1132,38 +1136,36 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField9">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField1.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField9.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox10">
+                <Component class="javax.swing.JComboBox" name="attributeCombo9">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel9" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox10ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo9ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField13">
+                <Component class="javax.swing.JTextField" name="attNumField10">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField5.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField10.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField6">
+                <Component class="javax.swing.JTextField" name="attNumField9">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField6.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField9.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Search for Graph"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox8">
                   <Properties>
@@ -1189,69 +1191,54 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField3">
+                <Component class="javax.swing.JTextField" name="attNumField3">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField3.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField3.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="attNumField1">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField1.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField1.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField8">
+                <Component class="javax.swing.JTextField" name="attNumField5">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField2.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField5.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox14">
+                <Component class="javax.swing.JComboBox" name="attributeCombo5">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel5" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox14ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo5ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox5">
+                <Component class="javax.swing.JComboBox" name="attributeCombo3">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel3" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox5ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo3ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="attNumField2">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField2.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField2.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox17">
+                <Component class="javax.swing.JComboBox" name="attributeCombo4">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel4" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox17ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo4ActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox16">
@@ -1280,9 +1267,9 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField5">
+                <Component class="javax.swing.JTextField" name="attNumField7">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField5.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField7.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox18">
@@ -1297,19 +1284,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox4">
+                <Component class="javax.swing.JComboBox" name="attributeCombo2">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel2" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox4ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo2ActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox22">
@@ -1348,79 +1330,59 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField12">
+                <Component class="javax.swing.JTextField" name="attNumField11">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField4.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField11.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox25">
+                <Component class="javax.swing.JComboBox" name="attributeCombo10">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel10" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox25ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo10ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox19">
+                <Component class="javax.swing.JComboBox" name="attributeCombo6">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel6" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox19ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo6ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField10">
+                <Component class="javax.swing.JTextField" name="attNumField6">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField3.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField6.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField11">
+                <Component class="javax.swing.JTextField" name="attNumField12">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextField6.setEditable(false);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField12.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox20">
+                <Component class="javax.swing.JComboBox" name="attributeCombo11">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel11" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox20ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo11ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox1">
+                <Component class="javax.swing.JComboBox" name="attributeCombo1">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel1" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo1ActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox6">
@@ -1447,49 +1409,34 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox9">
+                <Component class="javax.swing.JComboBox" name="attributeCombo7">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel7" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox9ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo7ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox11">
+                <Component class="javax.swing.JComboBox" name="attributeCombo8">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel8" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox11ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo8ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox21">
+                <Component class="javax.swing.JComboBox" name="attributeCombo12">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Attribute 1"/>
-                        <StringItem index="1" value="Attribute 2"/>
-                        <StringItem index="2" value="Attribute 3"/>
-                        <StringItem index="3" value="Attribute 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="boxModel12" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox21ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo12ActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox2">
@@ -1518,7 +1465,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel2">
+            <Container class="javax.swing.JPanel" name="filePanel">
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -1600,7 +1547,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel3">
+            <Container class="javax.swing.JPanel" name="optionsPanel">
 
               <Layout>
                 <DimensionLayout dim="0">
