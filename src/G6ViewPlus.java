@@ -67,6 +67,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;//JK
 import javax.swing.AbstractListModel;//JK
 import javax.swing.ComboBoxModel;//JK
+import javax.swing.JTextField;//JK
 import java.sql.*;//JK
 
 
@@ -117,9 +118,10 @@ public class G6ViewPlus extends javax.swing.JFrame
     public Vector[][] arrayG = new Vector[graphTypeTitle.length][invCatTitle.length];
 
     public String[] DBcols;
+    public String[] opArray = {"+","-","*","/"};
 
     public class MyComboBoxModel extends AbstractListModel implements ComboBoxModel{
-        private Object selectedObject = null;
+        private Object selectedObject = "Select Attribute";
         public void setSelectedItem(Object item) {
             selectedObject = item;
             fireContentsChanged(this, -1, -1);
@@ -142,21 +144,35 @@ public class G6ViewPlus extends javax.swing.JFrame
         }
 
     }
+
+        public class opBoxModel extends AbstractListModel implements ComboBoxModel{
+        private Object selectedObject = "+";
+        public void setSelectedItem(Object item) {
+            selectedObject = item;
+            fireContentsChanged(this, -1, -1);
+        }
+        public Object getSelectedItem() {
+            return selectedObject;
+        }
+
+        public Object getElementAt(int i) {
+            if(opArray[i] != null && i <= opArray.length){
+                return opArray[i];
+            }
+            return null;
+        }
+        public int getSize() {
+            if(opArray != null){
+                return opArray.length;
+            }
+            return 0;
+        }
+
+    }
     //TODO: convert to array
-    public MyComboBoxModel boxModel1 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel2 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel3 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel4 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel5 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel6 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel7 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel8 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel9 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel10 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel11 = new MyComboBoxModel();
-    public MyComboBoxModel boxModel12 = new MyComboBoxModel();
-
-
+    public MyComboBoxModel[] boxModel= new MyComboBoxModel[12];
+    public JTextField[] attNumField = new JTextField[12];
+    public opBoxModel[] opModel= new opBoxModel[12];
 
     public class MyTableModel extends AbstractTableModel {
         public String[] Columns = {"Bad", "Columns"};
@@ -190,6 +206,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         String[] columnNames = {"test","values"};
         Object[][] dataSmall;
 
+        //~~Shouldn't need these
         if(startIndex > endIndex || startIndex < 0)
         {
             endIndex = 10;
@@ -200,6 +217,8 @@ public class G6ViewPlus extends javax.swing.JFrame
             endIndex = colCount - 1;
             startIndex = colCount - 11;
         }
+        //Error checking should be done before this is called
+        
         dataSmall = new Object[rowCount][endIndex-startIndex + 1];
         columnNames = new String[endIndex-startIndex + 1];
         columnNames[0] = " Graph Names ";
@@ -261,10 +280,16 @@ public class G6ViewPlus extends javax.swing.JFrame
             int resNum = 2;
             while(result.next()){
                 DBcols[resNum] = result.getString(1);
-                //System.out.println(DBcols[resNum]);
                 resNum++;
             }
-                
+            
+
+            for(int i = 0;i<12;i++) {
+                boxModel[i] = new MyComboBoxModel();
+                opModel[i] = new opBoxModel();
+            }
+            
+            /*
             boxModel1.setSelectedItem(DBcols[0]);
             boxModel2.setSelectedItem(DBcols[0]);
             boxModel3.setSelectedItem(DBcols[0]);
@@ -276,7 +301,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             boxModel9.setSelectedItem(DBcols[0]);
             boxModel10.setSelectedItem(DBcols[0]);
             boxModel11.setSelectedItem(DBcols[0]);
-            boxModel12.setSelectedItem(DBcols[0]);
+            boxModel12.setSelectedItem(DBcols[0]);*/
         }
         catch(Exception E){
             E.printStackTrace();
@@ -992,6 +1017,7 @@ public class G6ViewPlus extends javax.swing.JFrame
 
     /** Creates new form G6ViewPlus */
     public G6ViewPlus(String[] args) {
+        readInData();//added by JK
         initComponents();
 
         //initializations
@@ -1034,6 +1060,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     }
 
     public G6ViewPlus() {
+        readInData();//added by JK
         initComponents();
 
         //initializations
@@ -1136,14 +1163,14 @@ public class G6ViewPlus extends javax.swing.JFrame
         jSeparator2 = new javax.swing.JSeparator();
         attributePanel = new javax.swing.JPanel();
         attNumField8 = new javax.swing.JTextField();
-        jComboBox15 = new javax.swing.JComboBox();
-        jTextField9 = new javax.swing.JTextField();
+        OpCombo4 = new javax.swing.JComboBox();
+        attNumField4 = new javax.swing.JTextField();
         attributeCombo9 = new javax.swing.JComboBox();
         attNumField10 = new javax.swing.JTextField();
         attNumField9 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jComboBox8 = new javax.swing.JComboBox();
-        jComboBox23 = new javax.swing.JComboBox();
+        OpCombo7 = new javax.swing.JComboBox();
+        OpCombo11 = new javax.swing.JComboBox();
         attNumField3 = new javax.swing.JTextField();
         attNumField1 = new javax.swing.JTextField();
         attNumField5 = new javax.swing.JTextField();
@@ -1151,14 +1178,14 @@ public class G6ViewPlus extends javax.swing.JFrame
         attributeCombo3 = new javax.swing.JComboBox();
         attNumField2 = new javax.swing.JTextField();
         attributeCombo4 = new javax.swing.JComboBox();
-        jComboBox16 = new javax.swing.JComboBox();
-        jComboBox13 = new javax.swing.JComboBox();
+        OpCombo5 = new javax.swing.JComboBox();
+        middleBox = new javax.swing.JComboBox();
         attNumField7 = new javax.swing.JTextField();
-        jComboBox18 = new javax.swing.JComboBox();
+        OpCombo6 = new javax.swing.JComboBox();
         attributeCombo2 = new javax.swing.JComboBox();
-        jComboBox22 = new javax.swing.JComboBox();
-        jComboBox3 = new javax.swing.JComboBox();
-        jComboBox7 = new javax.swing.JComboBox();
+        OpCombo12 = new javax.swing.JComboBox();
+        OpCombo2 = new javax.swing.JComboBox();
+        OpCombo8 = new javax.swing.JComboBox();
         attNumField11 = new javax.swing.JTextField();
         attributeCombo10 = new javax.swing.JComboBox();
         attributeCombo6 = new javax.swing.JComboBox();
@@ -1166,13 +1193,13 @@ public class G6ViewPlus extends javax.swing.JFrame
         attNumField12 = new javax.swing.JTextField();
         attributeCombo11 = new javax.swing.JComboBox();
         attributeCombo1 = new javax.swing.JComboBox();
-        jComboBox6 = new javax.swing.JComboBox();
-        jComboBox12 = new javax.swing.JComboBox();
+        OpCombo3 = new javax.swing.JComboBox();
+        OpCombo9 = new javax.swing.JComboBox();
         attributeCombo7 = new javax.swing.JComboBox();
         attributeCombo8 = new javax.swing.JComboBox();
         attributeCombo12 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox24 = new javax.swing.JComboBox();
+        OpCombo1 = new javax.swing.JComboBox();
+        OpCombo10 = new javax.swing.JComboBox();
         filePanel = new javax.swing.JPanel();
         jButton14 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
@@ -1269,7 +1296,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         );
         mainGraphPanelLayout.setVerticalGroup(
             mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 583, Short.MAX_VALUE)
         );
 
         insertButton.setText("Insert");
@@ -1653,6 +1680,8 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addContainerGap())))
         );
 
+        tab2PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {addInvariantButton, resetListButton});
+
         tab2PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {categoryNumberTextField, graphNumberTextField, invariantNumberTextField});
 
         tab2PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel7, jLabel8, jLabel9});
@@ -1678,11 +1707,13 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(invariantNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
                         .addComponent(addInvariantButton))
-                    .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
+                    .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(writeDriverButton)
                 .addGap(14, 14, 14))
         );
+
+        tab2PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addInvariantButton, resetListButton});
 
         jTabbedPane1.addTab("Select Invariants", tab2Panel);
 
@@ -1709,7 +1740,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         });
 
         //readInData();
-        readInData();
+
         showSubsetData(0,10);
         invariantTable.setModel(tModel1);
         invariantTableScrollPane.setViewportView(invariantTable);
@@ -1760,7 +1791,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        tab3PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {last10Button, next10Button});
+        tab3PanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {last10Button, next10Button, refreshInvariantsButton});
 
         tab3PanelLayout.setVerticalGroup(
             tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1780,17 +1811,20 @@ public class G6ViewPlus extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tab3PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {last10Button, next10Button, refreshInvariantsButton});
+
         jTabbedPane1.addTab("Inspect Invariants", tab3Panel);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         attNumField8.setEditable(false);
 
-        jComboBox15.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo4.setModel(opModel[3]);
 
-        jTextField9.setEditable(false);
+        attNumField4.setEditable(false);
 
-        attributeCombo9.setModel(boxModel9);
+        //System.out.println(boxModel[8].selectedObject.toString());
+        attributeCombo9.setModel(boxModel[8]);
         attributeCombo9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo9ActionPerformed(evt);
@@ -1808,9 +1842,9 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         });
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo7.setModel(opModel[6]);
 
-        jComboBox23.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo11.setModel(opModel[10]);
 
         attNumField3.setEditable(false);
 
@@ -1818,14 +1852,14 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         attNumField5.setEditable(false);
 
-        attributeCombo5.setModel(boxModel5);
+        attributeCombo5.setModel(boxModel[4]);
         attributeCombo5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo5ActionPerformed(evt);
             }
         });
 
-        attributeCombo3.setModel(boxModel3);
+        attributeCombo3.setModel(boxModel[2]);
         attributeCombo3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo3ActionPerformed(evt);
@@ -1834,44 +1868,44 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         attNumField2.setEditable(false);
 
-        attributeCombo4.setModel(boxModel4);
+        attributeCombo4.setModel(boxModel[3]);
         attributeCombo4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo4ActionPerformed(evt);
             }
         });
 
-        jComboBox16.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo5.setModel(opModel[4]);
 
-        jComboBox13.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<", ">", "=", "<=", "=>", "!=" }));
+        middleBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<", ">", "=", "<=", "=>", "!=" }));
 
         attNumField7.setEditable(false);
 
-        jComboBox18.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo6.setModel(opModel[5]);
 
-        attributeCombo2.setModel(boxModel2);
+        attributeCombo2.setModel(boxModel[1]);
         attributeCombo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo2ActionPerformed(evt);
             }
         });
 
-        jComboBox22.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo12.setModel(opModel[11]);
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo2.setModel(opModel[1]);
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo8.setModel(opModel[7]);
 
         attNumField11.setEditable(false);
 
-        attributeCombo10.setModel(boxModel10);
+        attributeCombo10.setModel(boxModel[9]);
         attributeCombo10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo10ActionPerformed(evt);
             }
         });
 
-        attributeCombo6.setModel(boxModel6);
+        attributeCombo6.setModel(boxModel[5]);
         attributeCombo6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo6ActionPerformed(evt);
@@ -1882,48 +1916,48 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         attNumField12.setEditable(false);
 
-        attributeCombo11.setModel(boxModel11);
+        attributeCombo11.setModel(boxModel[10]);
         attributeCombo11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo11ActionPerformed(evt);
             }
         });
 
-        attributeCombo1.setModel(boxModel1);
+        attributeCombo1.setModel(boxModel[0]);
         attributeCombo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo1ActionPerformed(evt);
             }
         });
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo3.setModel(opModel[2]);
 
-        jComboBox12.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo9.setModel(opModel[8]);
 
-        attributeCombo7.setModel(boxModel7);
+        attributeCombo7.setModel(boxModel[6]);
         attributeCombo7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo7ActionPerformed(evt);
             }
         });
 
-        attributeCombo8.setModel(boxModel8);
+        attributeCombo8.setModel(boxModel[7]);
         attributeCombo8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo8ActionPerformed(evt);
             }
         });
 
-        attributeCombo12.setModel(boxModel12);
+        attributeCombo12.setModel(boxModel[11]);
         attributeCombo12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo12ActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo1.setModel(opModel[0]);
 
-        jComboBox24.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "+", "-", "*", "/" }));
+        OpCombo10.setModel(opModel[9]);
 
         javax.swing.GroupLayout attributePanelLayout = new javax.swing.GroupLayout(attributePanel);
         attributePanel.setLayout(attributePanelLayout);
@@ -1945,8 +1979,8 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(attNumField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(OpCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OpCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(attributePanelLayout.createSequentialGroup()
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(attributeCombo6, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1955,13 +1989,13 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addGap(6, 6, 6)
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(attNumField6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(attNumField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(attNumField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(OpCombo6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OpCombo5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OpCombo4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(attributePanelLayout.createSequentialGroup()
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(attributeCombo8, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1969,7 +2003,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(attributeCombo11, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(attributeCombo10, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(attributeCombo12, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(middleBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(attNumField9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1979,12 +2013,12 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(attNumField8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OpCombo9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jComboBox24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(OpCombo10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(OpCombo12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(OpCombo11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(OpCombo8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, attributePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1992,7 +2026,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                 .addGap(6, 6, 6)
                 .addComponent(attNumField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OpCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(attributePanelLayout.createSequentialGroup()
                 .addContainerGap()
@@ -2000,11 +2034,15 @@ public class G6ViewPlus extends javax.swing.JFrame
                 .addGap(6, 6, 6)
                 .addComponent(attNumField7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OpCombo7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        attributePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox12, jComboBox2, jComboBox3, jComboBox6, jComboBox7, jComboBox8});
+        attributePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {OpCombo1, OpCombo10, OpCombo11, OpCombo12, OpCombo2, OpCombo3, OpCombo4, OpCombo5, OpCombo6, OpCombo7, OpCombo8, OpCombo9});
+
+        attributePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {attNumField1, attNumField10, attNumField11, attNumField12, attNumField2, attNumField3, attNumField4, attNumField5, attNumField6, attNumField7, attNumField8, attNumField9});
+
+        attributePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {attributeCombo1, attributeCombo10, attributeCombo11, attributeCombo12, attributeCombo2, attributeCombo3, attributeCombo4, attributeCombo5, attributeCombo6, attributeCombo7, attributeCombo8, attributeCombo9});
 
         attributePanelLayout.setVerticalGroup(
             attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2013,25 +2051,25 @@ public class G6ViewPlus extends javax.swing.JFrame
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(attributeCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(attNumField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OpCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(attributeCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(attNumField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OpCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(attributeCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(attNumField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OpCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(attributePanelLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jComboBox16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(OpCombo5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(OpCombo6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OpCombo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(attributePanelLayout.createSequentialGroup()
                         .addComponent(attributeCombo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -2042,24 +2080,24 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(attributeCombo6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(attNumField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(attNumField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(middleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(attributeCombo7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(attNumField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OpCombo7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(attributeCombo8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(attNumField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OpCombo8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(attributeCombo9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(attNumField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OpCombo9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(attributePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(attributePanelLayout.createSequentialGroup()
@@ -2075,16 +2113,16 @@ public class G6ViewPlus extends javax.swing.JFrame
                     .addComponent(attNumField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(attributePanelLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jComboBox23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(OpCombo11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(OpCombo12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(OpCombo10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
 
-        attributePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {attNumField1, attNumField2, attNumField3, attNumField7, attNumField8, attNumField9, attributeCombo1, attributeCombo2, attributeCombo3, attributeCombo7, attributeCombo8, attributeCombo9, jComboBox12, jComboBox13, jComboBox2, jComboBox3, jComboBox6, jComboBox7, jComboBox8});
+        attributePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {OpCombo1, OpCombo10, OpCombo11, OpCombo12, OpCombo2, OpCombo3, OpCombo4, OpCombo5, OpCombo6, OpCombo7, OpCombo8, OpCombo9, attNumField1, attNumField10, attNumField11, attNumField12, attNumField2, attNumField3, attNumField4, attNumField5, attNumField6, attNumField7, attNumField8, attNumField9, attributeCombo1, attributeCombo10, attributeCombo11, attributeCombo12, attributeCombo2, attributeCombo3, attributeCombo4, attributeCombo5, attributeCombo6, attributeCombo7, attributeCombo8, attributeCombo9, middleBox});
 
         jButton14.setText("Run Builddbs");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
@@ -2214,14 +2252,12 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(filePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(optionsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(41, 41, 41))
-                    .addGroup(tab5PanelLayout.createSequentialGroup()
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
                 .addGap(28, 28, 28)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(attributePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92))
+                .addGap(95, 95, 95))
         );
         tab5PanelLayout.setVerticalGroup(
             tab5PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2234,11 +2270,11 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tab5PanelLayout.createSequentialGroup()
                             .addGap(27, 27, 27)
                             .addComponent(optionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(37, 37, 37)
                             .addComponent(filePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Run Program", tab5Panel);
@@ -2722,16 +2758,45 @@ public class G6ViewPlus extends javax.swing.JFrame
     }//GEN-LAST:event_invariantTreeValueChanged
 
     private void addInvariantButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInvariantButtonActionPerformed
-        //TODO:input checking
-        if(Integer.parseInt(graphNumberTextField.getText()) < 4 && Integer.parseInt(categoryNumberTextField.getText()) < 7){
-            if (!graphListModel.contains("Custom Invariant: " + graphNumberTextField.getText() + " " + categoryNumberTextField.getText() + " " + invariantNumberTextField.getText()))
+        if(graphNumberTextField.getText().equals("") ||
+                categoryNumberTextField.getText().equals("") ||
+                invariantNumberTextField.getText().equals("") ||
+                Integer.parseInt(graphNumberTextField.getText()) >= 4 ||
+                Integer.parseInt(categoryNumberTextField.getText()) >= 7 ) {
+            System.out.println("Incorrect input");
+        }
+        else {
+            if (graphListModel.contains("Custom Invariant: " + graphNumberTextField.getText() + " " + categoryNumberTextField.getText() + " " + invariantNumberTextField.getText())){
+                System.out.println("Error: Already in the list.");
+            }
+            else {
                 graphListModel.addElement("Custom Invariant: " + graphNumberTextField.getText() + " " + categoryNumberTextField.getText() + " " + invariantNumberTextField.getText());
+            }
         }
     }//GEN-LAST:event_addInvariantButtonActionPerformed
 
     private void next10ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next10ButtonActionPerformed
-        startColumnTextField.setText(Integer.toString(Integer.parseInt(startColumnTextField.getText()) + 10));
-        endColumnTextField.setText(Integer.toString(Integer.parseInt(endColumnTextField.getText()) + 10));
+        //Input Checking
+
+        if(Integer.parseInt(startColumnTextField.getText()) > Integer.parseInt(endColumnTextField.getText())){
+            String switchVar = startColumnTextField.getText();
+            startColumnTextField.setText(endColumnTextField.getText());
+            endColumnTextField.setText(switchVar);
+        }
+
+        if(Integer.parseInt(endColumnTextField.getText()) >= colCount - 10 || Integer.parseInt(startColumnTextField.getText()) >= colCount - 10) {
+            startColumnTextField.setText(Integer.toString(colCount - 11));
+            endColumnTextField.setText(Integer.toString(colCount - 1));
+        }
+        else
+            if(Integer.parseInt(startColumnTextField.getText()) < 0 || Integer.parseInt(startColumnTextField.getText()) < 0) {
+            startColumnTextField.setText("0");
+            endColumnTextField.setText("10");
+        }
+        else {
+            startColumnTextField.setText(Integer.toString(Integer.parseInt(startColumnTextField.getText()) + 10));
+            endColumnTextField.setText(Integer.toString(Integer.parseInt(endColumnTextField.getText()) + 10));
+        }
         showSubsetData(Integer.parseInt(startColumnTextField.getText()), Integer.parseInt(endColumnTextField.getText()));
 
     }//GEN-LAST:event_next10ButtonActionPerformed
@@ -2746,18 +2811,26 @@ public class G6ViewPlus extends javax.swing.JFrame
     }//GEN-LAST:event_invariantTableScrollPaneMouseWheelMoved
 
     private void last10ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_last10ButtonActionPerformed
-        if(Integer.parseInt(startColumnTextField.getText()) < 10) {
+        //Input Checking
+              
+        if(Integer.parseInt(startColumnTextField.getText()) > Integer.parseInt(endColumnTextField.getText())){
+            String switchVar = startColumnTextField.getText();
+            startColumnTextField.setText(endColumnTextField.getText());
+            endColumnTextField.setText(switchVar);
+        }
+        
+        if(Integer.parseInt(endColumnTextField.getText()) > colCount || Integer.parseInt(startColumnTextField.getText()) > colCount) {
+            startColumnTextField.setText(Integer.toString(colCount - 11));
+            endColumnTextField.setText(Integer.toString(colCount - 1));
+        }
+        else if(Integer.parseInt(startColumnTextField.getText()) < 10 || Integer.parseInt(startColumnTextField.getText()) < 10) {
             startColumnTextField.setText("0");
+            endColumnTextField.setText("10");
         }
         else
         {
         startColumnTextField.setText(Integer.toString(Integer.parseInt(startColumnTextField.getText()) - 10));
-        }
-        if(Integer.parseInt(startColumnTextField.getText()) < 10) {
-            endColumnTextField.setText("10");
-        }
-        else {
-            endColumnTextField.setText(Integer.toString(Integer.parseInt(endColumnTextField.getText()) - 10));
+        endColumnTextField.setText(Integer.toString(Integer.parseInt(endColumnTextField.getText()) - 10));
         }
         showSubsetData(Integer.parseInt(startColumnTextField.getText()), Integer.parseInt(endColumnTextField.getText()));
     }//GEN-LAST:event_last10ButtonActionPerformed
@@ -2836,10 +2909,10 @@ public class G6ViewPlus extends javax.swing.JFrame
 
     private void attributeCombo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attributeCombo4ActionPerformed
         if(attributeCombo4.getSelectedIndex() == 1) {
-            jTextField9.setEditable(true);
+            attNumField4.setEditable(true);
         }
         else {
-            jTextField9.setEditable(false);
+            attNumField4.setEditable(false);
         }
     }//GEN-LAST:event_attributeCombo4ActionPerformed
 
@@ -2880,7 +2953,122 @@ public class G6ViewPlus extends javax.swing.JFrame
     }//GEN-LAST:event_attributeCombo10ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+    //TODO: finish building SQL query
+        String RHS;//= "Select * from graffiti where ";
+        String LHS;
+        RHS  = "";
+        LHS  = "";
+        //the following ungodly mess is brought to you by: Netbeans
+        //and it's inability to allow me to package GUI elements as an array.
+        String numberArray[] = new String[12];
+        try {
+
+            if(!attNumField1.getText().equals("")){
+                //System.out.println("1: " + attNumField1.getText());
+                numberArray[0] = Integer.toString(Integer.parseInt(attNumField1.getText()));
+            }
+            if(!attNumField2.getText().equals("")){
+                //System.out.println("2: " + attNumField1.getText());
+                numberArray[1] = Integer.toString(Integer.parseInt(attNumField2.getText()));
+            }
+            if(!attNumField3.getText().equals("")){
+                //System.out.println("3: " + attNumField1.getText());
+                numberArray[2] = Integer.toString(Integer.parseInt(attNumField3.getText()));
+            }
+            if(!attNumField4.getText().equals("")){
+                //System.out.println("4: " + attNumField1.getText());
+                numberArray[3] = Integer.toString(Integer.parseInt(attNumField4.getText()));
+            }
+            if(!attNumField5.getText().equals("")){
+                //System.out.println("5: " + attNumField1.getText());
+                numberArray[4] = Integer.toString(Integer.parseInt(attNumField5.getText()));
+            }
+            if(!attNumField6.getText().equals("")){
+                //System.out.println("6: " + attNumField1.getText());
+                numberArray[5] = Integer.toString(Integer.parseInt(attNumField6.getText()));
+            }
+            if(!attNumField7.getText().equals("")){
+                //System.out.println("7: " + attNumField1.getText());
+                numberArray[6] = Integer.toString(Integer.parseInt(attNumField7.getText()));
+            }
+            if(!attNumField8.getText().equals("")){
+                //System.out.println("8: " + attNumField1.getText());
+                numberArray[7] = Integer.toString(Integer.parseInt(attNumField8.getText()));
+            }
+            if(!attNumField9.getText().equals("")){
+                //System.out.println("9: " + attNumField1.getText());
+                numberArray[8] = Integer.toString(Integer.parseInt(attNumField9.getText()));
+            }
+            if(!attNumField10.getText().equals("")){
+                //System.out.println("10: " + attNumField1.getText());
+                numberArray[9] = Integer.toString(Integer.parseInt(attNumField10.getText()));
+            }
+            if(!attNumField11.getText().equals("")){
+                //System.out.println("11: " + attNumField1.getText());
+                numberArray[10] = Integer.toString(Integer.parseInt(attNumField11.getText()));
+            }
+            if(!attNumField12.getText().equals("")){
+                //System.out.println("12: " + attNumField1.getText());
+                numberArray[11] = Integer.toString(Integer.parseInt(attNumField12.getText()));
+
+            }
+
+        //end of ungodly mess~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            for(int i = 0; i < 6; i++) {
+                if(!boxModel[i].getSelectedItem().toString().equals("Select Attribute")) {
+                    if(boxModel[i].getSelectedItem().toString().equals("Number")) {
+                        LHS = LHS.concat(numberArray[i] + " ");
+                        //System.out.println("LHS: " + LHS + Integer.toString(i));
+                    }
+                    else {
+                        LHS = LHS.concat(boxModel[i].getSelectedItem().toString() + " ");
+                        //System.out.println("LHS: " + LHS + Integer.toString(i));
+                    }
+                    if(i != 5 && !boxModel[i+1].getSelectedItem().toString().equals("Select Attribute")){
+                        LHS = LHS.concat(opModel[i].getSelectedItem().toString() + " ");
+                        //System.out.println(Integer.toString(i) + " - in");
+                    }
+                }
+                else {
+                    if(i != 5 && !boxModel[i+1].getSelectedItem().toString().equals("Select Attribute")
+                            && !LHS.equals("")) {
+                        LHS = LHS.concat(opModel[i].getSelectedItem().toString() + " ");
+                        //System.out.println(Integer.toString(i) + " - out");
+                    }
+                }
+            }
+
+            for(int i = 6; i < 12; i++) {
+                if(!boxModel[i].getSelectedItem().toString().equals("Select Attribute")) {
+                    if(boxModel[i].getSelectedItem().toString().equals("Number")) {
+                        RHS = RHS.concat(numberArray[i] + " ");
+                        //System.out.println("RHS: " + RHS + Integer.toString(i));
+                    }
+                    else {
+                        RHS = RHS.concat(boxModel[i].getSelectedItem().toString() + " ");
+                        //System.out.println("RHS: " + RHS + Integer.toString(i));
+                    }
+                    if(i != 11 && !boxModel[i+1].getSelectedItem().toString().equals("Select Attribute")){
+                        RHS = RHS.concat(opModel[i].getSelectedItem().toString() + " ");
+                        //System.out.println(Integer.toString(i) + " - in");
+                    }
+                }
+                else {
+                    if(i != 11 && !boxModel[i+1].getSelectedItem().toString().equals("Select Attribute")
+                            && !RHS.equals("")){
+                        RHS = RHS.concat(opModel[i].getSelectedItem().toString() + " ");
+                        //System.out.println(Integer.toString(i)+ " - out");
+                    }
+                }
+            }
+            System.out.println(LHS + " " + middleBox.getSelectedItem().toString() + " " + RHS);
+        }
+        catch(NumberFormatException nfe) {
+            System.err.println("non-Integer entered in Integer field");
+            nfe.printStackTrace();
+        }
+        //System.out.println(LHS + RHS);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -2896,6 +3084,18 @@ public class G6ViewPlus extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox OpCombo1;
+    private javax.swing.JComboBox OpCombo10;
+    private javax.swing.JComboBox OpCombo11;
+    private javax.swing.JComboBox OpCombo12;
+    private javax.swing.JComboBox OpCombo2;
+    private javax.swing.JComboBox OpCombo3;
+    private javax.swing.JComboBox OpCombo4;
+    private javax.swing.JComboBox OpCombo5;
+    private javax.swing.JComboBox OpCombo6;
+    private javax.swing.JComboBox OpCombo7;
+    private javax.swing.JComboBox OpCombo8;
+    private javax.swing.JComboBox OpCombo9;
     private javax.swing.JButton addInvariantButton;
     private javax.swing.JTextField attNumField1;
     private javax.swing.JTextField attNumField10;
@@ -2903,6 +3103,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JTextField attNumField12;
     private javax.swing.JTextField attNumField2;
     private javax.swing.JTextField attNumField3;
+    private javax.swing.JTextField attNumField4;
     private javax.swing.JTextField attNumField5;
     private javax.swing.JTextField attNumField6;
     private javax.swing.JTextField attNumField7;
@@ -2951,19 +3152,6 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox jComboBox12;
-    private javax.swing.JComboBox jComboBox13;
-    private javax.swing.JComboBox jComboBox15;
-    private javax.swing.JComboBox jComboBox16;
-    private javax.swing.JComboBox jComboBox18;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox22;
-    private javax.swing.JComboBox jComboBox23;
-    private javax.swing.JComboBox jComboBox24;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox6;
-    private javax.swing.JComboBox jComboBox7;
-    private javax.swing.JComboBox jComboBox8;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2988,9 +3176,9 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JButton last10Button;
     private javax.swing.JPanel mainGraphPanel;
+    private javax.swing.JComboBox middleBox;
     private javax.swing.JButton next10Button;
     private javax.swing.JPanel optionsPanel;
     private javax.swing.JButton refreshInvariantsButton;
