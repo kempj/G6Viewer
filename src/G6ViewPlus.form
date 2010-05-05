@@ -899,14 +899,14 @@
                               <Group type="102" alignment="0" attributes="1">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="optionsPanel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="77" max="32767" attributes="0"/>
+                                  <EmptySpace pref="80" max="32767" attributes="0"/>
                                   <Component id="jSeparator2" min="-2" pref="27" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                   <Component id="filePanel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1495,22 +1495,22 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jCheckBox1" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="wtfCheckBox" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="12" pref="12" max="12" attributes="0"/>
-                                          <Component id="jTextField7" min="-2" pref="78" max="-2" attributes="0"/>
+                                          <Component id="mcmOutTextField" min="-2" pref="78" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="jCheckBox2" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="viewCheckBox" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="12" pref="12" max="12" attributes="0"/>
-                                  <Component id="jCheckBox3" linkSize="4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="appendCheckBox" linkSize="4" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="55" max="32767" attributes="0"/>
@@ -1523,28 +1523,28 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                          <Component id="jCheckBox1" linkSize="11" min="-2" max="-2" attributes="0"/>
+                          <Component id="wtfCheckBox" linkSize="11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField7" min="-2" max="-2" attributes="0"/>
+                          <Component id="mcmOutTextField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="18" max="32767" attributes="0"/>
-                          <Component id="jCheckBox2" linkSize="11" min="-2" max="-2" attributes="0"/>
+                          <Component id="viewCheckBox" linkSize="11" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
+                          <Component id="appendCheckBox" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextField7">
+                <Component class="javax.swing.JTextField" name="mcmOutTextField">
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox2">
+                <Component class="javax.swing.JCheckBox" name="viewCheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="View output in Tab 3"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+                <Component class="javax.swing.JCheckBox" name="wtfCheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Write to file"/>
                   </Properties>
@@ -1559,7 +1559,7 @@
                     <Property name="text" type="java.lang.String" value="Options"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox3">
+                <Component class="javax.swing.JCheckBox" name="appendCheckBox">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Append to Existing data"/>
                   </Properties>

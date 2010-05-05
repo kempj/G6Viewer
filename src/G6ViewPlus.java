@@ -90,7 +90,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     private ActionListener refresh;
     private boolean DEBUG = false;
 
-    //Jeremys stuff
+    //Jeremys stuff~~~~~~~~~~~~~~~~~~~
     //Number of invariants in the Invariant file
     int invCount = 0;
     //Number of invariants in the MCM file
@@ -119,6 +119,7 @@ public class G6ViewPlus extends javax.swing.JFrame
 
     public String[] DBcols;
     public String[] opArray = {"+","-","*","/"};
+    public Statement DBselect;
 
     public class MyComboBoxModel extends AbstractListModel implements ComboBoxModel{
         private Object selectedObject = "Select Attribute";
@@ -169,7 +170,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         }
 
     }
-    //TODO: convert to array
+    
     public MyComboBoxModel[] boxModel= new MyComboBoxModel[12];
     public JTextField[] attNumField = new JTextField[12];
     public opBoxModel[] opModel= new opBoxModel[12];
@@ -268,40 +269,25 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         try {
             con = DriverManager.getConnection(url,"graffitiguest","UHDpass");
-            Statement select = con.createStatement();
-            ResultSet result = select.executeQuery("select * from tempInv");
-            DBcolCount = result.getMetaData().getColumnCount();
+            DBselect = con.createStatement();
+            //ResultSet result = DBselect.executeQuery("select * from Graph");
+            //DBcolCount = result.getMetaData().getColumnCount();
+            DBcolCount = 30;
 
             DBcols = new String[DBcolCount+2];
             DBcols[0] = "Select Attribute";
             DBcols[1] = "Number";
             
-            result = select.executeQuery("describe tempInv");
+            ResultSet result = DBselect.executeQuery("describe G");
             int resNum = 2;
-            while(result.next()){
+            while(result.next() && resNum < 30){
                 DBcols[resNum] = result.getString(1);
                 resNum++;
             }
-            
-
             for(int i = 0;i<12;i++) {
                 boxModel[i] = new MyComboBoxModel();
                 opModel[i] = new opBoxModel();
             }
-            
-            /*
-            boxModel1.setSelectedItem(DBcols[0]);
-            boxModel2.setSelectedItem(DBcols[0]);
-            boxModel3.setSelectedItem(DBcols[0]);
-            boxModel4.setSelectedItem(DBcols[0]);
-            boxModel5.setSelectedItem(DBcols[0]);
-            boxModel6.setSelectedItem(DBcols[0]);
-            boxModel7.setSelectedItem(DBcols[0]);
-            boxModel8.setSelectedItem(DBcols[0]);
-            boxModel9.setSelectedItem(DBcols[0]);
-            boxModel10.setSelectedItem(DBcols[0]);
-            boxModel11.setSelectedItem(DBcols[0]);
-            boxModel12.setSelectedItem(DBcols[0]);*/
         }
         catch(Exception E){
             E.printStackTrace();
@@ -319,12 +305,12 @@ public class G6ViewPlus extends javax.swing.JFrame
 
             inputInv = new String[colCount];
 
-            for(int i = 0; i < colCount; i++)
-            {
+            for(int i = 0; i < colCount; i++){
                 inputInv[i] = br.readLine();
             }
 
             rowCount = Integer.parseInt(br.readLine());
+            rowCount = 20;
 
             graphDataLine = new String[colCount];
             data = new String[rowCount][colCount];
@@ -1207,12 +1193,12 @@ public class G6ViewPlus extends javax.swing.JFrame
         jLabel11 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
         optionsPanel = new javax.swing.JPanel();
-        jTextField7 = new javax.swing.JTextField();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        mcmOutTextField = new javax.swing.JTextField();
+        viewCheckBox = new javax.swing.JCheckBox();
+        wtfCheckBox = new javax.swing.JCheckBox();
         jLabel13 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        appendCheckBox = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -2186,15 +2172,15 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         filePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel10, jLabel11});
 
-        jCheckBox2.setText("View output in Tab 3");
+        viewCheckBox.setText("View output in Tab 3");
 
-        jCheckBox1.setText("Write to file");
+        wtfCheckBox.setText("Write to file");
 
         jLabel13.setText("Choose Output File Name");
 
         jLabel12.setText("Options");
 
-        jCheckBox3.setText("Append to Existing data");
+        appendCheckBox.setText("Append to Existing data");
 
         javax.swing.GroupLayout optionsPanelLayout = new javax.swing.GroupLayout(optionsPanel);
         optionsPanel.setLayout(optionsPanelLayout);
@@ -2203,23 +2189,23 @@ public class G6ViewPlus extends javax.swing.JFrame
             .addGroup(optionsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(optionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
+                    .addComponent(wtfCheckBox)
                     .addGroup(optionsPanelLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(optionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(optionsPanelLayout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(mcmOutTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel13)))
                     .addComponent(jLabel12)
-                    .addComponent(jCheckBox2)
+                    .addComponent(viewCheckBox)
                     .addGroup(optionsPanelLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jCheckBox3)))
+                        .addComponent(appendCheckBox)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        optionsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCheckBox1, jCheckBox2, jCheckBox3});
+        optionsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {appendCheckBox, viewCheckBox, wtfCheckBox});
 
         optionsPanelLayout.setVerticalGroup(
             optionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2227,18 +2213,18 @@ public class G6ViewPlus extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addGap(16, 16, 16)
-                .addComponent(jCheckBox1)
+                .addComponent(wtfCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mcmOutTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jCheckBox2)
+                .addComponent(viewCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox3))
+                .addComponent(appendCheckBox))
         );
 
-        optionsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCheckBox1, jCheckBox2});
+        optionsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {viewCheckBox, wtfCheckBox});
 
         javax.swing.GroupLayout tab5PanelLayout = new javax.swing.GroupLayout(tab5Panel);
         tab5Panel.setLayout(tab5PanelLayout);
@@ -2270,11 +2256,11 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tab5PanelLayout.createSequentialGroup()
                             .addGap(27, 27, 27)
                             .addComponent(optionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(37, 37, 37)
                             .addComponent(filePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Run Program", tab5Panel);
@@ -2844,7 +2830,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void attributeCombo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attributeCombo1ActionPerformed
-        // TODO add your handling code here:
+       
         if(attributeCombo1.getSelectedIndex() == 1) {
             attNumField1.setEditable(true);
         }
@@ -3014,27 +3000,27 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
 
         //end of ungodly mess~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+        //parsing the comboboxes
             for(int i = 0; i < 6; i++) {
                 if(!boxModel[i].getSelectedItem().toString().equals("Select Attribute")) {
                     if(boxModel[i].getSelectedItem().toString().equals("Number")) {
+                        //adds a number if selected
                         LHS = LHS.concat(numberArray[i] + " ");
-                        //System.out.println("LHS: " + LHS + Integer.toString(i));
                     }
                     else {
-                        LHS = LHS.concat(boxModel[i].getSelectedItem().toString() + " ");
-                        //System.out.println("LHS: " + LHS + Integer.toString(i));
+                        //adds an attribute if selected
+                        LHS = LHS.concat("`" + boxModel[i].getSelectedItem().toString() + "` ");
                     }
                     if(i != 5 && !boxModel[i+1].getSelectedItem().toString().equals("Select Attribute")){
-                        LHS = LHS.concat(opModel[i].getSelectedItem().toString() + " ");
-                        //System.out.println(Integer.toString(i) + " - in");
+                        //appends the operator in the right spots
+                        LHS = LHS.concat(opModel[i].getSelectedItem().toString());
                     }
                 }
                 else {
                     if(i != 5 && !boxModel[i+1].getSelectedItem().toString().equals("Select Attribute")
                             && !LHS.equals("")) {
+                        //adds the appropriate in the right spots: case for skipping boxes
                         LHS = LHS.concat(opModel[i].getSelectedItem().toString() + " ");
-                        //System.out.println(Integer.toString(i) + " - out");
                     }
                 }
             }
@@ -3042,32 +3028,80 @@ public class G6ViewPlus extends javax.swing.JFrame
             for(int i = 6; i < 12; i++) {
                 if(!boxModel[i].getSelectedItem().toString().equals("Select Attribute")) {
                     if(boxModel[i].getSelectedItem().toString().equals("Number")) {
+                        //adds a number if selected
                         RHS = RHS.concat(numberArray[i] + " ");
-                        //System.out.println("RHS: " + RHS + Integer.toString(i));
                     }
                     else {
-                        RHS = RHS.concat(boxModel[i].getSelectedItem().toString() + " ");
-                        //System.out.println("RHS: " + RHS + Integer.toString(i));
+                        //adds an attribute if selected
+                        RHS = RHS.concat("`" + boxModel[i].getSelectedItem().toString() + "` ");
                     }
                     if(i != 11 && !boxModel[i+1].getSelectedItem().toString().equals("Select Attribute")){
+                        //appends the operator in the right spots
                         RHS = RHS.concat(opModel[i].getSelectedItem().toString() + " ");
-                        //System.out.println(Integer.toString(i) + " - in");
                     }
                 }
                 else {
                     if(i != 11 && !boxModel[i+1].getSelectedItem().toString().equals("Select Attribute")
                             && !RHS.equals("")){
+                        //adds the appropriate in the right spots: case for skipping boxes
                         RHS = RHS.concat(opModel[i].getSelectedItem().toString() + " ");
-                        //System.out.println(Integer.toString(i)+ " - out");
                     }
                 }
             }
-            System.out.println(LHS + " " + middleBox.getSelectedItem().toString() + " " + RHS);
         }
-        catch(NumberFormatException nfe) {
+            catch(NumberFormatException nfe) {
             System.err.println("non-Integer entered in Integer field");
             nfe.printStackTrace();
         }
+
+        //switch the middlebox
+        String midBox = "";
+        if (middleBox.getSelectedItem().toString().equals("<"))
+            midBox = ">=";
+        if (middleBox.getSelectedItem().toString().equals(">"))
+            midBox = "<=";
+        if (middleBox.getSelectedItem().toString().equals("="))
+            midBox = "!=";
+        if (middleBox.getSelectedItem().toString().equals("!="))
+            midBox = "=";
+        if (middleBox.getSelectedItem().toString().equals("<="))
+            midBox = ">";
+        if (middleBox.getSelectedItem().toString().equals(">="))
+            midBox = "<";
+
+        String[] DBcols = {"graphname","number vertices of graph","max degree of graph",
+                "min degree of graph", "avg degree of graph",
+                "number of distinct degrees of graph"," Radius of graph",
+                "diameter of graph"};
+         String DBstring = "Select graphname, `number vertices of graph`," +
+                 " `max degree of graph`, `min degree of graph`," +
+                 " `avg degree of graph`, `number of distinct degrees of graph`," +
+                 " `sum of degrees of graph`,`length of degrees of graph`,"+
+                 " `Radius of graph`,`diameter of graph`"+
+                 "FROM G WHERE "
+                 + LHS + " " + midBox + " " + RHS;
+        System.out.println(DBstring);
+
+        //Object[][] DBdata;
+        try{
+            Object[][] DBdata = new Object[20][10];
+            ResultSet DBresult = DBselect.executeQuery(DBstring);
+            int DBrowCount = 0;
+            while(DBresult.next() && DBrowCount < 20){
+                for(int i = 1; i < 11; i++)
+                    DBdata[DBrowCount][i-1] = DBresult.getString(i) + " ";
+                //System.out.println(DBresult.getString(10));
+                DBrowCount++;
+            }
+            if(viewCheckBox.isSelected())
+                tModel1.update(DBcols,DBdata);
+        }
+        catch (Exception E){
+            System.err.println("Something has broked with the DB query");
+            E.printStackTrace();
+        }
+
+        
         //System.out.println(LHS + RHS);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -3097,6 +3131,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JComboBox OpCombo8;
     private javax.swing.JComboBox OpCombo9;
     private javax.swing.JButton addInvariantButton;
+    private javax.swing.JCheckBox appendCheckBox;
     private javax.swing.JTextField attNumField1;
     private javax.swing.JTextField attNumField10;
     private javax.swing.JTextField attNumField11;
@@ -3149,9 +3184,6 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -3175,9 +3207,9 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JButton last10Button;
     private javax.swing.JPanel mainGraphPanel;
+    private javax.swing.JTextField mcmOutTextField;
     private javax.swing.JComboBox middleBox;
     private javax.swing.JButton next10Button;
     private javax.swing.JPanel optionsPanel;
@@ -3194,6 +3226,8 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JComboBox vertexComboBox;
     private javax.swing.JPanel vertexMenuPanel;
     private javax.swing.JSlider vertexSizeSlider;
+    private javax.swing.JCheckBox viewCheckBox;
     public javax.swing.JButton writeDriverButton;
+    private javax.swing.JCheckBox wtfCheckBox;
     // End of variables declaration//GEN-END:variables
 }
