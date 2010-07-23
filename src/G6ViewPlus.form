@@ -124,7 +124,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="mainGraphPanel" max="32767" attributes="2"/>
                           </Group>
-                          <Component id="graphNameTextField" alignment="1" pref="614" max="32767" attributes="1"/>
+                          <Component id="graphNameTextField" alignment="1" pref="618" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -229,12 +229,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="518" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="522" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="583" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="555" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -569,7 +569,7 @@
                                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="invariantListScrollPane" pref="351" max="32767" attributes="0"/>
+                                      <Component id="invariantListScrollPane" pref="355" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -609,7 +609,7 @@
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Component id="addInvariantButton" linkSize="19" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="invariantTreeScrollPane" pref="557" max="32767" attributes="1"/>
+                          <Component id="invariantTreeScrollPane" pref="539" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="writeDriverButton" min="-2" max="-2" attributes="0"/>
@@ -740,7 +740,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="invariantTableScrollPane" alignment="0" pref="765" max="32767" attributes="0"/>
+                          <Component id="invariantTableScrollPane" alignment="0" pref="769" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="refreshInvariantsButton" linkSize="8" min="-2" pref="89" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -752,7 +752,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="last10Button" linkSize="8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="585" max="32767" attributes="0"/>
+                              <EmptySpace pref="591" max="32767" attributes="0"/>
                               <Component id="next10Button" linkSize="8" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -878,7 +878,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jSeparator2" pref="296" max="32767" attributes="1"/>
+                          <Component id="jSeparator2" pref="306" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="14" max="-2" attributes="1"/>
@@ -899,14 +899,14 @@
                               <Group type="102" alignment="0" attributes="1">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="optionsPanel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="80" max="32767" attributes="0"/>
+                                  <EmptySpace pref="94" max="32767" attributes="0"/>
                                   <Component id="jSeparator2" min="-2" pref="27" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                                   <Component id="filePanel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1115,27 +1115,29 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="attNumField8">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField8.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo4">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[3]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField4">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField4.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo9">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[8]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo9ActionPerformed"/>
@@ -1145,11 +1147,17 @@
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField10">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField10.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField9">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField9.setEditable(false);"/>
                   </AuxValues>
@@ -1157,6 +1165,7 @@
                 <Component class="javax.swing.JButton" name="jButton1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Search for Graph"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -1164,38 +1173,41 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo7">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[6]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo11">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[10]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField3">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField3.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField1">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField1.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField5">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField5.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo5">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[4]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo5ActionPerformed"/>
@@ -1203,24 +1215,23 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo3">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[2]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo3ActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField2">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField2.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo4">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[3]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo4ActionPerformed"/>
@@ -1228,9 +1239,7 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo5">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[4]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="middleBox">
@@ -1245,25 +1254,25 @@
                         <StringItem index="5" value="!="/>
                       </StringArray>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField7">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField7.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo6">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[5]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo2">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[1]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo2ActionPerformed"/>
@@ -1271,35 +1280,30 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo12">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[11]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo2">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[1]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo8">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[7]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField11">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField11.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo10">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[9]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo10ActionPerformed"/>
@@ -1307,29 +1311,31 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo6">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[5]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo6ActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField6">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField6.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JTextField" name="attNumField12">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="attNumField12.setEditable(false);"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo11">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[10]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo11ActionPerformed"/>
@@ -1337,9 +1343,7 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo1">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[0]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo1ActionPerformed"/>
@@ -1347,23 +1351,17 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo3">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[2]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo9">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[8]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo7">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[6]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo7ActionPerformed"/>
@@ -1371,9 +1369,7 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo8">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[7]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo8ActionPerformed"/>
@@ -1381,9 +1377,7 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="attributeCombo12">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="boxModel[11]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attributeCombo12ActionPerformed"/>
@@ -1391,16 +1385,12 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo1">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[0]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="OpCombo10">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="opModel[9]" type="code"/>
-                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1432,7 +1422,7 @@
                                   <Component id="jButton14" linkSize="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="26" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1513,7 +1503,7 @@
                                   <Component id="appendCheckBox" linkSize="4" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="55" max="32767" attributes="0"/>
+                          <EmptySpace pref="65" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

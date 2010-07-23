@@ -146,7 +146,7 @@ public class G6ViewPlus extends javax.swing.JFrame
 
     }
 
-        public class opBoxModel extends AbstractListModel implements ComboBoxModel{
+    public class opBoxModel extends AbstractListModel implements ComboBoxModel{
         private Object selectedObject = "+";
         public void setSelectedItem(Object item) {
             selectedObject = item;
@@ -255,43 +255,43 @@ public class G6ViewPlus extends javax.swing.JFrame
         DataInputStream in;
         BufferedReader br;
         String[] graphDataLine;
-        String url = "jdbc:mysql://grid.uhd.edu/graffiti";
+        //DB//String url = "jdbc:mysql://grid.uhd.edu/graffiti";
         Connection con = null;
-        try {
-            String driver = "com.mysql.jdbc.Driver";
-            Class.forName(driver).newInstance();
-        }
-        catch(Exception E1) {
-            System.out.println("Failed to load MySQL Driver.");
-            E1.printStackTrace();
-            return;
-        }
+        //DB//try {
+        //DB//    String driver = "com.mysql.jdbc.Driver";
+        //DB//    Class.forName(driver).newInstance();
+        //DB//}
+        //DB//catch(Exception E1) {
+        //DB//    System.out.println("Failed to load MySQL Driver.");
+        //DB//    E1.printStackTrace();
+        //DB//    return;
+        //DB//}
 
-        try {
-            con = DriverManager.getConnection(url,"graffitiguest","UHDpass");
-            DBselect = con.createStatement();
-            //ResultSet result = DBselect.executeQuery("select * from Graph");
-            //DBcolCount = result.getMetaData().getColumnCount();
-            DBcolCount = 30;
+        //DB//try {
+        //DB//    con = DriverManager.getConnection(url,"graffitiguest","UHDpass");
+        //DB//    DBselect = con.createStatement();
+        //DB//    //ResultSet result = DBselect.executeQuery("select * from Graph");
+        //DB//    //DBcolCount = result.getMetaData().getColumnCount();
+        //DB//    DBcolCount = 30;
 
-            DBcols = new String[DBcolCount+2];
-            DBcols[0] = "Select Attribute";
-            DBcols[1] = "Number";
-            
-            ResultSet result = DBselect.executeQuery("describe G");
-            int resNum = 2;
-            while(result.next() && resNum < 30){
-                DBcols[resNum] = result.getString(1);
-                resNum++;
-            }
-            for(int i = 0;i<12;i++) {
-                boxModel[i] = new MyComboBoxModel();
-                opModel[i] = new opBoxModel();
-            }
-        }
-        catch(Exception E){
-            E.printStackTrace();
-        }
+        //DB//    DBcols = new String[DBcolCount+2];
+        //DB//    DBcols[0] = "Select Attribute";
+        //DB//    DBcols[1] = "Number";
+        //DB//
+        //DB//    ResultSet result = DBselect.executeQuery("describe G");
+        //DB//    int resNum = 2;
+        //DB//    while(result.next() && resNum < 30){
+        //DB//        DBcols[resNum] = result.getString(1);
+        //DB//        resNum++;
+        //DB//    }
+        //DB//    for(int i = 0;i<12;i++) {
+        //DB//        boxModel[i] = new MyComboBoxModel();
+        //DB//        opModel[i] = new opBoxModel();
+        //DB//    }
+        //DB//}
+        //DB//catch(Exception E){
+        //DB//    E.printStackTrace();
+        //DB//}
 
         //~~~~~~~~ File read in ~~~~~~~~~~
         try
@@ -1278,11 +1278,11 @@ public class G6ViewPlus extends javax.swing.JFrame
         mainGraphPanel.setLayout(mainGraphPanelLayout);
         mainGraphPanelLayout.setHorizontalGroup(
             mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
+            .addGap(0, 522, Short.MAX_VALUE)
         );
         mainGraphPanelLayout.setVerticalGroup(
             mainGraphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGap(0, 555, Short.MAX_VALUE)
         );
 
         insertButton.setText("Insert");
@@ -1489,7 +1489,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(edgeListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(mainGraphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(graphNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
+                    .addComponent(graphNameTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(highlightingButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1656,7 +1656,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                                 .addComponent(invariantNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32))
                             .addGroup(tab2PanelLayout.createSequentialGroup()
-                                .addComponent(invariantListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                                .addComponent(invariantListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                                 .addContainerGap()))
                         .addGroup(tab2PanelLayout.createSequentialGroup()
                             .addComponent(addInvariantButton)
@@ -1693,7 +1693,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(invariantNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
                         .addComponent(addInvariantButton))
-                    .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE))
+                    .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(writeDriverButton)
                 .addGap(14, 14, 14))
@@ -1761,7 +1761,7 @@ public class G6ViewPlus extends javax.swing.JFrame
             .addGroup(tab3PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(invariantTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
+                    .addComponent(invariantTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
                     .addGroup(tab3PanelLayout.createSequentialGroup()
                         .addComponent(refreshInvariantsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
@@ -1772,7 +1772,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(endColumnTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(tab3PanelLayout.createSequentialGroup()
                         .addComponent(last10Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 585, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 591, Short.MAX_VALUE)
                         .addComponent(next10Button)))
                 .addContainerGap())
         );
@@ -1804,13 +1804,15 @@ public class G6ViewPlus extends javax.swing.JFrame
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         attNumField8.setEditable(false);
+        attNumField8.setEnabled(false);
 
-        OpCombo4.setModel(opModel[3]);
+        OpCombo4.setEnabled(false);
 
         attNumField4.setEditable(false);
+        attNumField4.setEnabled(false);
 
         //System.out.println(boxModel[8].selectedObject.toString());
-        attributeCombo9.setModel(boxModel[8]);
+        attributeCombo9.setEnabled(false);
         attributeCombo9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo9ActionPerformed(evt);
@@ -1818,34 +1820,40 @@ public class G6ViewPlus extends javax.swing.JFrame
         });
 
         attNumField10.setEditable(false);
+        attNumField10.setEnabled(false);
 
         attNumField9.setEditable(false);
+        attNumField9.setEnabled(false);
 
         jButton1.setText("Search for Graph");
+        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        OpCombo7.setModel(opModel[6]);
+        OpCombo7.setEnabled(false);
 
-        OpCombo11.setModel(opModel[10]);
+        OpCombo11.setEnabled(false);
 
         attNumField3.setEditable(false);
+        attNumField3.setEnabled(false);
 
         attNumField1.setEditable(false);
+        attNumField1.setEnabled(false);
 
         attNumField5.setEditable(false);
+        attNumField5.setEnabled(false);
 
-        attributeCombo5.setModel(boxModel[4]);
+        attributeCombo5.setEnabled(false);
         attributeCombo5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo5ActionPerformed(evt);
             }
         });
 
-        attributeCombo3.setModel(boxModel[2]);
+        attributeCombo3.setEnabled(false);
         attributeCombo3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo3ActionPerformed(evt);
@@ -1853,45 +1861,49 @@ public class G6ViewPlus extends javax.swing.JFrame
         });
 
         attNumField2.setEditable(false);
+        attNumField2.setEnabled(false);
 
-        attributeCombo4.setModel(boxModel[3]);
+        attributeCombo4.setEnabled(false);
         attributeCombo4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo4ActionPerformed(evt);
             }
         });
 
-        OpCombo5.setModel(opModel[4]);
+        OpCombo5.setEnabled(false);
 
         middleBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<", ">", "=", "<=", "=>", "!=" }));
+        middleBox.setEnabled(false);
 
         attNumField7.setEditable(false);
+        attNumField7.setEnabled(false);
 
-        OpCombo6.setModel(opModel[5]);
+        OpCombo6.setEnabled(false);
 
-        attributeCombo2.setModel(boxModel[1]);
+        attributeCombo2.setEnabled(false);
         attributeCombo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo2ActionPerformed(evt);
             }
         });
 
-        OpCombo12.setModel(opModel[11]);
+        OpCombo12.setEnabled(false);
 
-        OpCombo2.setModel(opModel[1]);
+        OpCombo2.setEnabled(false);
 
-        OpCombo8.setModel(opModel[7]);
+        OpCombo8.setEnabled(false);
 
         attNumField11.setEditable(false);
+        attNumField11.setEnabled(false);
 
-        attributeCombo10.setModel(boxModel[9]);
+        attributeCombo10.setEnabled(false);
         attributeCombo10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo10ActionPerformed(evt);
             }
         });
 
-        attributeCombo6.setModel(boxModel[5]);
+        attributeCombo6.setEnabled(false);
         attributeCombo6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo6ActionPerformed(evt);
@@ -1899,51 +1911,53 @@ public class G6ViewPlus extends javax.swing.JFrame
         });
 
         attNumField6.setEditable(false);
+        attNumField6.setEnabled(false);
 
         attNumField12.setEditable(false);
+        attNumField12.setEnabled(false);
 
-        attributeCombo11.setModel(boxModel[10]);
+        attributeCombo11.setEnabled(false);
         attributeCombo11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo11ActionPerformed(evt);
             }
         });
 
-        attributeCombo1.setModel(boxModel[0]);
+        attributeCombo1.setEnabled(false);
         attributeCombo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo1ActionPerformed(evt);
             }
         });
 
-        OpCombo3.setModel(opModel[2]);
+        OpCombo3.setEnabled(false);
 
-        OpCombo9.setModel(opModel[8]);
+        OpCombo9.setEnabled(false);
 
-        attributeCombo7.setModel(boxModel[6]);
+        attributeCombo7.setEnabled(false);
         attributeCombo7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo7ActionPerformed(evt);
             }
         });
 
-        attributeCombo8.setModel(boxModel[7]);
+        attributeCombo8.setEnabled(false);
         attributeCombo8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo8ActionPerformed(evt);
             }
         });
 
-        attributeCombo12.setModel(boxModel[11]);
+        attributeCombo12.setEnabled(false);
         attributeCombo12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 attributeCombo12ActionPerformed(evt);
             }
         });
 
-        OpCombo1.setModel(opModel[0]);
+        OpCombo1.setEnabled(false);
 
-        OpCombo10.setModel(opModel[9]);
+        OpCombo10.setEnabled(false);
 
         javax.swing.GroupLayout attributePanelLayout = new javax.swing.GroupLayout(attributePanel);
         attributePanel.setLayout(attributePanelLayout);
@@ -2145,7 +2159,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                     .addGroup(filePanelLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(jButton14)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         filePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel10, jLabel11});
@@ -2202,7 +2216,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                     .addGroup(optionsPanelLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(appendCheckBox)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         optionsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {appendCheckBox, viewCheckBox, wtfCheckBox});
@@ -2238,7 +2252,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(filePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(optionsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(41, 41, 41))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
                 .addGap(28, 28, 28)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
@@ -2256,11 +2270,11 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tab5PanelLayout.createSequentialGroup()
                             .addGap(27, 27, 27)
                             .addComponent(optionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(37, 37, 37)
                             .addComponent(filePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Run Program", tab5Panel);
@@ -2939,7 +2953,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     }//GEN-LAST:event_attributeCombo10ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    //TODO: finish building SQL query
+/*    //TODO: finish building SQL query
         String RHS;//= "Select * from graffiti where ";
         String LHS;
         RHS  = "";
@@ -3102,7 +3116,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         }
 
         
-        //System.out.println(LHS + RHS);
+        //System.out.println(LHS + RHS);*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
