@@ -249,14 +249,15 @@ public class G6ViewPlus extends javax.swing.JFrame
 
     public void readInData()
     {
-        int DBcolCount = 0;
+        //int DBcolCount = 0;
         
         FileInputStream fstream;
         DataInputStream in;
         BufferedReader br;
+        String mcmName;
         String[] graphDataLine;
         //DB//String url = "jdbc:mysql://grid.uhd.edu/graffiti";
-        Connection con = null;
+        //Connection con = null;
         //DB//try {
         //DB//    String driver = "com.mysql.jdbc.Driver";
         //DB//    Class.forName(driver).newInstance();
@@ -296,7 +297,8 @@ public class G6ViewPlus extends javax.swing.JFrame
         //~~~~~~~~ File read in ~~~~~~~~~~
         try
         {
-            fstream = new FileInputStream("mcm1.dat");
+            mcmName = "defaultMCM.dat";
+            fstream = new FileInputStream(mcmName);
             in = new DataInputStream(fstream);
             br = new BufferedReader(new InputStreamReader(in));
 
@@ -310,7 +312,8 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
 
             rowCount = Integer.parseInt(br.readLine());
-            rowCount = 20;
+            if(mcmName.equals("defaultMCM.dat"))
+                rowCount = 20;
 
             graphDataLine = new String[colCount];
             data = new String[rowCount][colCount];
@@ -330,6 +333,14 @@ public class G6ViewPlus extends javax.swing.JFrame
         catch (Exception e2){
             System.err.println(//"Rows: " + rowCount + " Columns: " + colCount +"\n" +
             "\n Error: " + e2.getMessage());
+            rowCount = 2;
+            colCount = 3;
+            data[0][0] = "Something";
+            data[0][1] ="Is";
+            data[0][2] = "Broken";
+            data[1][0] ="Load";
+            data[1][1] ="MCM";
+            data[1][2] ="File";
         }
 
     }
@@ -437,7 +448,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         //fstream = new FileInputStream("mcm1.dat");
         try
         {
-            out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("Driver.dat")));
+            out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(driverNameTextField.getText())));
 
             out.writeChars(Integer.toString(graphTypeTitle.length)+ "\n");// number of graphs
             //System.out.println(graphTypeTitle.length + " //number of graphs");
@@ -1135,6 +1146,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         graphNumberTextField = new javax.swing.JTextField();
         categoryNumberTextField = new javax.swing.JTextField();
         invariantNumberTextField = new javax.swing.JTextField();
+        driverNameTextField = new javax.swing.JTextField();
         tab3Panel = new javax.swing.JPanel();
         refreshInvariantsButton = new javax.swing.JButton();
         startColumnTextField = new javax.swing.JTextField();
@@ -1531,7 +1543,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                     .addGroup(tab1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton8)
                         .addComponent(graphGoButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("G6 Viewer", tab1Panel);
@@ -1625,6 +1637,8 @@ public class G6ViewPlus extends javax.swing.JFrame
             }
         });
 
+        driverNameTextField.setText("Name.Driver");
+
         javax.swing.GroupLayout tab2PanelLayout = new javax.swing.GroupLayout(tab2Panel);
         tab2Panel.setLayout(tab2PanelLayout);
         tab2PanelLayout.setHorizontalGroup(
@@ -1632,7 +1646,10 @@ public class G6ViewPlus extends javax.swing.JFrame
             .addGroup(tab2PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(writeDriverButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tab2PanelLayout.createSequentialGroup()
+                        .addComponent(writeDriverButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(driverNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1695,7 +1712,9 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(addInvariantButton))
                     .addComponent(invariantTreeScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(writeDriverButton)
+                .addGroup(tab2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(writeDriverButton)
+                    .addComponent(driverNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
@@ -1794,7 +1813,7 @@ public class G6ViewPlus extends javax.swing.JFrame
                 .addGroup(tab3PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(last10Button)
                     .addComponent(next10Button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         tab3PanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {last10Button, next10Button, refreshInvariantsButton});
@@ -2274,14 +2293,15 @@ public class G6ViewPlus extends javax.swing.JFrame
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(37, 37, 37)
                             .addComponent(filePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Run Program", tab5Panel);
 
         jMenu1.setText("File");
 
-        jMenuItem1.setText("Launch Organizer");
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Open MCM file");
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -2315,8 +2335,8 @@ public class G6ViewPlus extends javax.swing.JFrame
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -3174,6 +3194,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JTextField categoryNumberTextField;
     private javax.swing.JToggleButton deleteEdgeButton;
     private javax.swing.JToggleButton deleteVertexButton;
+    private javax.swing.JTextField driverNameTextField;
     private javax.swing.JComboBox edgeComboBox;
     private javax.swing.JList edgeList;
     private javax.swing.JScrollPane edgeListScrollPane;

@@ -26,7 +26,10 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Launch Organizer"/>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+O"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Open MCM file"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -90,8 +93,8 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" min="-2" pref="651" max="-2" attributes="2"/>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" min="-2" pref="664" max="-2" attributes="2"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -175,7 +178,7 @@
                               <Component id="graphGoButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -542,7 +545,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="writeDriverButton" min="-2" pref="81" max="-2" attributes="1"/>
+                          <Group type="102" attributes="0">
+                              <Component id="writeDriverButton" min="-2" pref="81" max="-2" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="driverNameTextField" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="invariantTreeScrollPane" min="-2" pref="402" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -612,7 +619,10 @@
                           <Component id="invariantTreeScrollPane" pref="539" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="writeDriverButton" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="writeDriverButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="driverNameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -719,6 +729,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="invariantNumberTextFieldActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JTextField" name="driverNameTextField">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Name.Driver"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="tab3Panel">
@@ -777,7 +792,7 @@
                           <Component id="last10Button" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="next10Button" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -906,7 +921,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
