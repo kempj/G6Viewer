@@ -1269,6 +1269,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         jLabel12 = new javax.swing.JLabel();
         graphFileButton = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        appendCheckBox = new javax.swing.JCheckBox();
         jButton14 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -2191,6 +2192,13 @@ public class G6ViewPlus extends javax.swing.JFrame
 
         jLabel10.setText("Select Graph File");
 
+        appendCheckBox.setText("Append to last mcm");
+        appendCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appendCheckBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout optionsPanelLayout = new javax.swing.GroupLayout(optionsPanel);
         optionsPanel.setLayout(optionsPanelLayout);
         optionsPanelLayout.setHorizontalGroup(
@@ -2209,7 +2217,8 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(optionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(graphFileButton)
-                            .addComponent(mcmOutTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(mcmOutTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(appendCheckBox))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         optionsPanelLayout.setVerticalGroup(
@@ -2224,7 +2233,9 @@ public class G6ViewPlus extends javax.swing.JFrame
                         .addComponent(jLabel13)))
                 .addGap(18, 18, 18)
                 .addComponent(viewCheckBox)
-                .addGap(65, 65, 65)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(appendCheckBox)
+                .addGap(37, 37, 37)
                 .addGroup(optionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(graphFileButton))
@@ -2929,10 +2940,15 @@ public class G6ViewPlus extends javax.swing.JFrame
 //                    invFileToRun = null;
 //                }
 //            }
+            String mcmArg = mcmOutTextField.getText();
+
+            if(appendCheckBox.isSelected()){
+                mcmArg = "a";
+            }
 
             Runtime newRuntime = Runtime.getRuntime();
 
-            Process newProcess = newRuntime.exec("./buildDB 1 " + g6FileToRun + " " + mcmOutTextField.getText()); //"./buildDB 1 ./g6/test1.g6 3");
+            Process newProcess = newRuntime.exec("./buildDB 1 " + g6FileToRun + " " + mcmArg); //"./buildDB 1 ./g6/test1.g6 3");
 
             InputStream stderr = newProcess.getErrorStream();
             InputStreamReader isr = new InputStreamReader(stderr);
@@ -3295,6 +3311,11 @@ public class G6ViewPlus extends javax.swing.JFrame
         }
     }//GEN-LAST:event_graphFileButtonActionPerformed
 
+    private void appendCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appendCheckBoxActionPerformed
+        // TODO add your handling code here:
+        mcmOutTextField.setEnabled(!mcmOutTextField.isEnabled());
+    }//GEN-LAST:event_appendCheckBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3321,6 +3342,7 @@ public class G6ViewPlus extends javax.swing.JFrame
     private javax.swing.JComboBox OpCombo8;
     private javax.swing.JComboBox OpCombo9;
     private javax.swing.JButton addInvariantButton;
+    private javax.swing.JCheckBox appendCheckBox;
     private javax.swing.JTextField attNumField1;
     private javax.swing.JTextField attNumField10;
     private javax.swing.JTextField attNumField11;
