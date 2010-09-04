@@ -241,7 +241,7 @@ public class G6ViewPlus extends javax.swing.JFrame
         }
 
         if(endIndex > colCount){
-            endIndex = colCount - 1;
+            endIndex = colCount ;
             startIndex = colCount - 10;
         }
 
@@ -277,9 +277,9 @@ public class G6ViewPlus extends javax.swing.JFrame
         {
             dataSmall[i][0] = data[i][0];
             //This is offset by one to push the graph names in the leftmost column
-            for(int j = 1;j < endIndex - startIndex + 2; j++ )
+            for(int j = 0;j < endIndex - startIndex +1; j++ )
             {
-                dataSmall[i][j] = data[i][startIndex + j - 1];
+                dataSmall[i][j+1] = data[i][startIndex + j];
             }
         }
         tModel1.update(columnNames, dataSmall);
@@ -326,23 +326,23 @@ public class G6ViewPlus extends javax.swing.JFrame
             if(fPath.equals("defaultMCM.dat"))
                 rowCount = 20;
 
-            graphDataLine = new String[colCount];
-            data = new String[rowCount][colCount];
+            graphDataLine = new String[colCount+1];
+            data = new String[rowCount][colCount+1];
 
             for(int i=0; i < rowCount; i++)
             {
                 data[i][0] = br.readLine();
                 graphDataLine = br.readLine().split(" ");
 
-                for(int j=1; j < colCount ; j++)//
+                for(int j=0; j < colCount; j++)//
                 {
-                    data[i][j] = graphDataLine[j-1];
+                    data[i][j+1] = graphDataLine[j];
                 }
             }
             fstream.close();
         }
         catch (Exception e2) {
-            System.err.println("\n Error: " + e2.getMessage());
+            e2.printStackTrace();
             colCount = 3;
             rowCount = 2;
             inputInv = new String[colCount];

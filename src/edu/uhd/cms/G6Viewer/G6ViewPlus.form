@@ -167,7 +167,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="mainGraphPanel" max="32767" attributes="2"/>
                           </Group>
-                          <Component id="graphNameTextField" alignment="1" pref="622" max="32767" attributes="1"/>
+                          <Component id="graphNameTextField" alignment="1" pref="614" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -218,7 +218,7 @@
                               <Component id="graphGoButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -272,12 +272,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="526" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="518" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="583" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -612,7 +612,7 @@
                                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="invariantListScrollPane" pref="359" max="32767" attributes="0"/>
+                                      <Component id="invariantListScrollPane" pref="351" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -652,7 +652,7 @@
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Component id="addInvariantButton" linkSize="19" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="invariantTreeScrollPane" pref="547" max="32767" attributes="1"/>
+                          <Component id="invariantTreeScrollPane" pref="557" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="writeDriverButton" min="-2" max="-2" attributes="0"/>
@@ -782,7 +782,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="invariantTableScrollPane" alignment="0" pref="773" max="32767" attributes="0"/>
+                          <Component id="invariantTableScrollPane" alignment="0" pref="765" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="refreshInvariantsButton" linkSize="8" min="-2" pref="89" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -794,7 +794,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="last10Button" linkSize="8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="595" max="32767" attributes="0"/>
+                              <EmptySpace pref="585" max="32767" attributes="0"/>
                               <Component id="next10Button" linkSize="8" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -819,7 +819,7 @@
                           <Component id="last10Button" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="next10Button" linkSize="17" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -950,7 +950,7 @@
                               <Group type="102" alignment="0" attributes="1">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Component id="optionsPanel" min="-2" pref="203" max="-2" attributes="0"/>
-                                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                                  <EmptySpace pref="30" max="32767" attributes="0"/>
                                   <Component id="jButton14" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jSeparator2" min="-2" pref="27" max="-2" attributes="0"/>
@@ -959,7 +959,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <EmptySpace pref="34" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
